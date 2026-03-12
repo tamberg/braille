@@ -20,6 +20,7 @@ Run `braille` on Linux or MacOS.
 $ ./braille "hoi goran"
 ```
 
+Expected output.
 ```bash
 ● ○
 ● ●
