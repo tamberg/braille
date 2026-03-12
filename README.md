@@ -2,7 +2,7 @@
 
 Initiated by Goran of [Apfelschule.ch](https://apfelschule.ch).
 
-Based on the [Braille alphabet](https://www.sbs.ch/fileadmin/braille200/Braille-Alphabet.pdf) as documented by [sbs.ch](https://www.sbs.ch/).
+Based on the [Braille alphabet](https://www.sbs.ch/fileadmin/braille200/Braille-Alphabet.pdf) as documented by [SBS.ch](https://www.sbs.ch/).
 
 ## Build
 ```bash
