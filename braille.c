@@ -121,18 +121,18 @@ struct entry entries[] = {
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
-        printf("usage: %s word\n", argv[0]);
+        printf("usage: %s \"text\"\n", argv[0]);
         return -1;
     }
-    char *word = argv[1];
+    char *text = argv[1];
     int i = 0;
-    int ch = word[i];
+    int ch = text[i];
     while (ch != '\0') {
         int pos = (ch == ' ') ? 26 : (ch - 'a');
         assert(ch == entries[pos].ch);
         printf("%s\n", entries[pos].braille);
         i++;
-        ch = word[i];
+        ch = text[i];
     }
     return 0;
 }
