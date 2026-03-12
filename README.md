@@ -14,7 +14,7 @@ $ gcc -o braille braille.c
 ```
 
 ## Run
-Build *braille* on Linux or MacOS.
+Run `braille` on Linux or MacOS.
 
 ```bash
 $ ./braille "hoi goran"
