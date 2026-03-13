@@ -1,6 +1,7 @@
 // https://tamberg.mit-license.org
 
 #include <stdio.h>
+#include <string.h>
 #include <assert.h>
 
 struct letter {
@@ -200,12 +201,59 @@ int main(int argc, char *argv[]) {
         printf("usage: %s \"text\"\n", argv[0]);
         return -1;
     }
+    // build line
+    struct letter *line[32];
     text = argv[1];
+    int n = 0;
     int ch = read_ch();
-    while (ch != '\0') {
+    while (n < 32 && ch != '\0') {
         int i = index_of(ch);
-        printf("%s\n", letters[i].braille);
+        line[n] = &letters[i];
+        n++;
         ch = read_ch();
     }
+    // print line
+    int j = 0;
+    while (j < n) {
+        printf("%c", line[j]->braille[0]);
+        printf("%c", line[j]->braille[1]);
+        printf("%c", line[j]->braille[2]);
+        printf("%c", line[j]->braille[3]);
+        printf("%c", line[j]->braille[4]);
+        printf("%c", line[j]->braille[5]);
+        printf("%c", line[j]->braille[6]);
+        printf("   ");
+        j++;
+    }
+    printf("\n");
+
+    int k = 0;
+    while (k < n) {
+        printf("%c", line[k]->braille[8]);
+        printf("%c", line[k]->braille[9]);
+        printf("%c", line[k]->braille[10]);
+        printf("%c", line[k]->braille[11]);
+        printf("%c", line[k]->braille[12]);
+        printf("%c", line[k]->braille[13]);
+        printf("%c", line[k]->braille[14]);
+        printf("   ");
+        k++;
+    }
+    printf("\n");
+
+    int m = 0;
+    while (m < n) {
+        printf("%c", line[m]->braille[16]);
+        printf("%c", line[m]->braille[17]);
+        printf("%c", line[m]->braille[18]);
+        printf("%c", line[m]->braille[19]);
+        printf("%c", line[m]->braille[20]);
+        printf("%c", line[m]->braille[21]);
+        printf("%c", line[m]->braille[22]);
+        printf("   ");
+        m++;
+    }
+    printf("\n");
+
     return 0;
 }
