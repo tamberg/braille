@@ -29,12 +29,18 @@ Expected output.
 ```
 
 ## Debug
-If a character is not supported.
-```
-Assertion failed: ..., function index_of
-```
+- If a character is not supported.
+    ```
+    Assertion failed: ..., function index_of
+    ```
 
-If the input text is too long.
-```
-Assertion failed: (n < 32), function main
-```
+- If the input text is too long.
+    ```
+    Assertion failed: (n < 32), function main
+    ```
+
+## Learn
+Check these simplified versions of the code.
+
+- [braille0.c](braille0.c) uses a big if statement, hard coded text.
+- [braille1.c](braille1.c) uses an array of strings, calculated index.
