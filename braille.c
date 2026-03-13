@@ -3,12 +3,12 @@
 #include <stdio.h>
 #include <assert.h>
 
-struct entry {
+struct letter {
     char ch;
     char *braille;
 };
 
-struct entry entries[] = {
+struct letter letters[] = {
     {'a', "● ○\n"
           "○ ○\n"
           "○ ○\n"
@@ -129,8 +129,8 @@ int main(int argc, char *argv[]) {
     int ch = text[i];
     while (ch != '\0') {
         int pos = (ch == ' ') ? 26 : (ch - 'a');
-        assert(ch == entries[pos].ch);
-        printf("%s\n", entries[pos].braille);
+        assert(ch == letters[pos].ch);
+        printf("%s\n", letters[pos].braille);
         i++;
         ch = text[i];
     }
