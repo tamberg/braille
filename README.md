@@ -30,7 +30,7 @@ Expected output.
 
 ## Debug
 If a character is not supported.
-```bash
+```
 Assertion failed: ... function index_of
 ```
 
