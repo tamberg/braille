@@ -9,20 +9,32 @@ Based on the [Braille alphabet](https://www.sbs.ch/fileadmin/braille200/Braille-
 ## Build
 Build [braille.c](braille.c) on Linux or MacOS, in a terminal.
 
-```bash
+```
 $ gcc -o braille braille.c
 ```
 
 ## Run
 Run `braille` on Linux or MacOS.
 
-```bash
+```
 $ ./braille "hoi goran"
 ```
 
 Expected output.
-```bash
+```
 ● ○   ● ○   ○ ●   ○ ○   ● ●   ● ○   ● ○   ● ○   ● ●   
 ● ●   ○ ●   ● ○   ○ ○   ● ●   ○ ●   ● ●   ○ ○   ○ ●   
-○ ○   ● ○   ○ ○   ○ ○   ○ ○   ● ○   ● ○   ○ ○   ● ○
+○ ○   ● ○   ○ ○   ○ ○   ○ ○   ● ○   ● ○   ○ ○   ● ○   
+ h     o     i           g     o     r     a     n
+```
+
+## Debug
+If a character is not supported.
+```
+Assertion failed: ..., function index_of
+```
+
+If the input text is too long.
+```
+Assertion failed: (n < 32), function main
 ```
