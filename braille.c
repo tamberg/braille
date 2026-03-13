@@ -216,14 +216,14 @@ int main(int argc, char *argv[]) {
     }
 
     // print line
-    for (int j = 0; j < 3; j++) {
-        for (int k = 0; k < n; k++) {
-            printf("%s   ", line[k]->braille[j]);
+    for (int y = 0; y < 3; y++) {
+        for (int x = 0; x < n; x++) {
+            printf("%s   ", line[x]->braille[y]);
         }
         printf("\n");
     }
-    for (int p = 0; p < n; p++) {
-        printf(" %c    ", line[p]->ch);
+    for (int j = 0; j < n; j++) {
+        printf(" %c    ", line[j]->ch);
     }
     printf("\n");
 
