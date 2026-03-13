@@ -1,8 +1,5 @@
 #include <stdio.h>
 
-// ⠁⠃⠉⠙⠑⠋⠛⠓⠊⠚⠅⠇⠍⠝⠕⠏⠟⠗⠎⠞⠥⠧⠺⠭⠽⠵
-// abcdefghijklmnopqrstuvwxyz
-
 void print_braille(char ch) {
     char *s;
     if (ch == ' ') {
