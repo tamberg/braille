@@ -22,6 +22,10 @@ void print_braille(char ch) {
 }
 
 int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        printf("usage: %s text\n", argv[0]);
+        return -1;
+    }
     char *text = argv[1];
     int i = 0;
     char ch = text[i];
