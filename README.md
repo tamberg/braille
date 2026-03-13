@@ -34,7 +34,7 @@ If a character is not supported.
 Assertion failed: ..., function index_of
 ```
 
-If the text is too long.
+If the input text is too long.
 ```
 Assertion failed: (n < 32), function main
 ```
