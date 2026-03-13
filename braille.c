@@ -116,23 +116,69 @@ struct letter letters[] = {
     {' ', "○ ○\n"
           "○ ○\n"
           "○ ○\n"
+    },
+    {',', "○ ○\n"
+          "● ○\n"
+          "○ ○\n"
+    },
+    {';', "○ ○\n"
+          "● ○\n"
+          "● ○\n"
+    },
+    {':', "○ ○\n"
+          "● ●\n"
+          "○ ○\n"
+    },
+    {'?', "○ ○\n"
+          "● ○\n"
+          "○ ●\n"
+    },
+    {'!', "○ ○\n"
+          "● ●\n"
+          "● ○\n"
+    },
+    {'(', "○ ○\n" // ?
+          "● ●\n"
+          "● ●\n"
+    },
+    {')', "○ ○\n" // ?
+          "● ●\n"
+          "● ●\n"
     }
 };
+
+int index_of(char ch) {
+    assert( // valid chars [a-z] or one of the special chars
+        ('a' <= ch && ch <= 'z') || 
+        ch == ' ' || ch == ',' || ch == ';' || ch == ':' ||
+        ch == '?' || ch == '!' || ch == '(' || ch == ')');
+    int i = 0;
+    while (letters[i].ch != ch) {
+        i++;
+    }
+    return i;
+}
+
+int pos = 0;
+char *text;
+
+int read_ch() {
+    int ch = text[pos];
+    pos++;
+    return ch;
+}
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
         printf("usage: %s \"text\"\n", argv[0]);
         return -1;
     }
-    char *text = argv[1];
-    int i = 0;
-    int ch = text[i];
+    text = argv[1];
+    int ch = read_ch();
     while (ch != '\0') {
-        int pos = (ch == ' ') ? 26 : (ch - 'a');
-        assert(ch == letters[pos].ch);
-        printf("%s\n", letters[pos].braille);
-        i++;
-        ch = text[i];
+        int i = index_of(ch);
+        printf("%s\n", letters[i].braille);
+        ch = read_ch();
     }
     return 0;
 }
