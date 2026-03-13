@@ -207,8 +207,9 @@ int main(int argc, char *argv[]) {
     text = argv[1];
     int n = 0;
     int ch = read_ch();
-    while (n < 32 && ch != '\0') {
+    while (ch != '\0') {
         int i = index_of(ch);
+        assert(n < 32);
         line[n] = &letters[i];
         n++;
         ch = read_ch();
