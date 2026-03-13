@@ -43,4 +43,14 @@ Expected output.
 Check these simplified versions of the code.
 
 - [braille0.c](braille0.c) uses a big if statement, hard coded text.
+    ```
+    $ gcc -o braille0 braille0.c
+    $ ./braille0
+    ⠓⠕⠊ ⠛⠕⠗⠁⠝```
+
 - [braille1.c](braille1.c) uses an array of strings, calculated index.
+    ```
+    $ gcc -o braille1 braille1.c
+    $ ./braille1
+    $ ./braille1 "hoi goran"
+    ⠓⠕⠊ ⠛⠕⠗⠁⠝```
