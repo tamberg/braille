@@ -19,8 +19,8 @@ void print_braille(char ch) {
     printf("%s", s);
 }
 
-int main(void) {
-    char *text = "hoi goran";
+int main(int argc, char *argv[]) {
+    char *text = argv[1];
     int i = 0;
     char ch = text[i];
     while (ch != '\0') {
