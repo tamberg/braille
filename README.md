@@ -31,6 +31,10 @@ Expected output.
 ## Debug
 If a character is not supported.
 ```
-Assertion failed: ... function index_of
+Assertion failed: ..., function index_of
 ```
 
+If the text is too long.
+```
+Assertion failed: (n < 32), function main
+```
