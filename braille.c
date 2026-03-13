@@ -153,12 +153,12 @@ struct letter letters[] = {
 // error: character too large for enclosing character literal type
 //
 //    {'“', {"○ ○", // quote left
-//          "● ○",
-//          "● ●"}
+//           "● ○",
+//           "● ●"}
 //    }
 //    {'”', {"○ ○", // quote right
-//          "○ ●",
-//          "● ●"}
+//           "○ ●",
+//           "● ●"}
 //    },
     {'.', {"○ ○",
            "○ ●",
@@ -169,8 +169,8 @@ struct letter letters[] = {
            "● ○"}
     },
     {'\'', {"○ ○", // single quote
-           "○ ○",
-           "○ ●"}
+            "○ ○",
+            "○ ●"}
     }
 };
 
