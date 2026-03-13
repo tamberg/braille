@@ -1,3 +1,5 @@
+// https://tamberg.mit-license.org
+
 #include <stdio.h>
 
 char *braille[] = {
