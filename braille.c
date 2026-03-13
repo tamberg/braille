@@ -216,31 +216,23 @@ int main(int argc, char *argv[]) {
     }
 
     // print line
-    int j = 0;
-    while (j < n) {
+    for (int j = 0; j < n; j++) {
         printf("%s   ", line[j]->braille[0]);
-        j++;
     }
     printf("\n");
 
-    int k = 0;
-    while (k < n) {
+    for (int k = 0; k < n; k++) {
         printf("%s   ", line[k]->braille[1]);
-        k++;
     }
     printf("\n");
 
-    int m = 0;
-    while (m < n) {
+    for (int m = 0; m < n; m++) {
         printf("%s   ", line[m]->braille[2]);
-        m++;
     }
     printf("\n");
 
-    int p = 0;
-    while (p < n) {
+    for (int p = 0; p < n; p++) {
         printf(" %c    ", line[p]->ch);
-        p++;
     }
     printf("\n");
 
