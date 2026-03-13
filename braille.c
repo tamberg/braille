@@ -201,6 +201,7 @@ int main(int argc, char *argv[]) {
         printf("usage: %s \"text\"\n", argv[0]);
         return -1;
     }
+
     // build line
     struct letter *line[32];
     text = argv[1];
@@ -212,6 +213,7 @@ int main(int argc, char *argv[]) {
         n++;
         ch = read_ch();
     }
+
     // print line
     int j = 0;
     while (j < n) {
