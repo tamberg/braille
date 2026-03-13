@@ -187,6 +187,11 @@ int index_of(char ch) {
     return i;
 }
 
+struct letter *letter_by(char ch) {
+    int i = index_of(ch);
+    return &letters[i];
+}
+
 int pos = 0;
 char *text;
 
@@ -208,9 +213,8 @@ int main(int argc, char *argv[]) {
     int n = 0;
     int ch = read_ch();
     while (ch != '\0') {
-        int i = index_of(ch);
         assert(n < 32);
-        line[n] = &letters[i];
+        line[n] = letter_by(ch);
         n++;
         ch = read_ch();
     }
