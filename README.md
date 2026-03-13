@@ -9,19 +9,19 @@ Based on the [Braille alphabet](https://www.sbs.ch/fileadmin/braille200/Braille-
 ## Build
 Build [braille.c](braille.c) on Linux or MacOS, in a terminal.
 
-```bash
+```console
 $ gcc -o braille braille.c
 ```
 
 ## Run
 Run `braille` on Linux or MacOS.
 
-```bash
+```console
 $ ./braille "hoi goran"
 ```
 
 Expected output.
-```bash
+```console
 ● ○   ● ○   ○ ●   ○ ○   ● ●   ● ○   ● ○   ● ○   ● ●   
 ● ●   ○ ●   ● ○   ○ ○   ● ●   ○ ●   ● ●   ○ ○   ○ ●   
 ○ ○   ● ○   ○ ○   ○ ○   ○ ○   ● ○   ● ○   ○ ○   ● ○   
@@ -30,7 +30,7 @@ Expected output.
 
 ## Debug
 If a character is not supported.
-```
+```console
 Assertion failed: ... function index_of
 ```
 
