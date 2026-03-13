@@ -257,5 +257,13 @@ int main(int argc, char *argv[]) {
     }
     printf("\n");
 
+    int p = 0;
+    while (p < n) {
+        printf(" %c ", line[p]->ch);
+        printf("   ");
+        p++;
+    }
+    printf("\n");
+
     return 0;
 }
