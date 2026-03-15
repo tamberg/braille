@@ -7,7 +7,7 @@
 #define READ_S 4
 #define READ_SC 5
 
-// au, eu, ei, ch, sch, st (ohne ss)
+// au, eu, ei, ch, sch, st
 
 void print_parsed(char *s) {
     int i = 0;
