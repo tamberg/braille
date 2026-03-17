@@ -10,14 +10,227 @@
 #define READ_S 4
 #define READ_SC 5
 
+struct tuple {
+    char *ascii;
+    char *braille_s;
+    char *braille_l[3];
+};
+
+struct tuple tuples[] = {
+    {" ", " ", {"○ ○",
+                "○ ○",
+                "○ ○"}
+    },
+    {"a", "⠁", {"● ○",
+                "○ ○",
+                "○ ○"}
+    },
+    {"b", "⠃", {"● ○",
+                "● ○",
+                "○ ○"}
+    },
+    {"c", "⠉", {"● ●",
+                "○ ○",
+                "○ ○"}
+    },
+    {"d", "⠙", {"● ●",
+                "○ ●",
+                "○ ○"}
+    },
+    {"e", "⠑", {"● ○",
+                "○ ●",
+                "○ ○"}
+    },
+    {"f", "⠋", {"● ●",
+                "● ○",
+                "○ ○"}
+    },
+    {"g", "⠛", {"● ●",
+                "● ●",
+                "○ ○"}
+    },
+    {"h", "⠓", {"● ○",
+                "● ●",
+                "○ ○"}
+    },
+    {"i", "⠊", {"○ ●",
+                "● ○",
+                "○ ○"}
+    },
+    {"j", "⠚", {"○ ●",
+                "● ●",
+                "○ ○"}
+    },
+    {"k", "⠅", {"● ○",
+                "○ ○",
+                "● ○"}
+    },
+    {"l", "⠇", {"● ○",
+                "● ○",
+                "● ○"}
+    },
+    {"m", "⠍", {"● ●",
+                "○ ○",
+                "● ○"}
+    },
+    {"n", "⠝", {"● ●",
+                "○ ●",
+                "● ○"}
+    },
+    {"o", "⠕", {"● ○",
+                "○ ●",
+                "● ○"}
+    },
+    {"p", "⠏", {"● ●",
+                "● ○",
+                "● ○"}
+    },
+    {"q", "⠟", {"● ●",
+                "● ●",
+                "● ○"}
+    },
+    {"r", "⠗", {"● ○",
+                "● ●",
+                "● ○"}
+    },
+    {"s", "⠎", {"○ ●",
+                "● ○",
+                "● ○"}
+    },
+    {"t", "⠞", {"○ ●",
+                "● ●",
+                "● ○"}
+    },
+    {"u", "⠥", {"● ○",
+                "○ ○",
+                "● ●"}
+    },
+    {"v", "⠧", {"● ○",
+                "● ○",
+                "● ●"}
+    },
+    {"w", "⠺", {"○ ●",
+                "● ●",
+                "○ ●"}
+    },
+    {"x", "⠭", {"● ●",
+                "○ ○",
+                "● ●"}
+    },
+    {"y", "⠽", {"● ●",
+                "○ ●",
+                "● ●"}
+    },
+    {"z", "⠵", {"● ○",
+                "○ ●",
+                "● ●"}
+    },
+    {" ", " ", {"○ ○",
+                "○ ○",
+                "○ ○"}
+    },
+    {",", "⠂", {"○ ○",
+                "● ○",
+                "○ ○"}
+    },
+    {";", "⠆", {"○ ○",
+                "● ○",
+                "● ○"}
+    },
+    {":", "⠒", {"○ ○",
+                "● ●",
+                "○ ○"}
+    },
+    {"?", "⠢", {"○ ○",
+                "● ○",
+                "○ ●"}
+    },
+    {"!", "⠖", {"○ ○",
+                "● ●",
+                "● ○"}
+    },
+    {"(", "⠶", {"○ ○",
+                "● ●",
+                "● ●"}
+    },
+    {")", "⠶", {"○ ○",
+                "● ●",
+                "● ●"}
+    },
+    {"*", "⠔", {"○ ○",
+                "○ ●",
+                "● ○"}
+    },
+    {"“", "⠦", {"○ ○", // quote left
+                "● ○",
+                "● ●"}
+    },
+    {"”", "⠴", {"○ ○", // quote right
+                "○ ●",
+                "● ●"}
+    },
+    {".", "⠄", {"○ ○",
+                "○ ○",
+                "● ○"}
+    },
+    {"-", "⠤", {"○ ○",
+                "○ ○",
+                "● ●"}
+    },
+    {"\'", "⠠", {"○ ○", // single quote
+                 "○ ○",
+                 "○ ●"}
+    },
+    {"au", "?", {"○ ○",
+                 "○ ○",
+                 "○ ○"}
+    },
+    {"eu", "?", {"○ ○",                
+                 "○ ○",
+                 "○ ○"}
+    },
+    {"ei", "?", {"○ ○",                
+                 "○ ○",
+                 "○ ○"}
+    },
+    {"ch", "?", {"○ ○",                
+                 "○ ○",
+                 "○ ○"}
+    },
+    {"sch", "?", {"○ ○",                
+                 "○ ○",
+                 "○ ○"}
+    },
+    {"st", "?", {"○ ○",                
+                 "○ ○",
+                 "○ ○"}
+    },
+    {"\n", "\n", {"", "", "\n"}} // TODO
+};
+
+int tuples_len = sizeof(tuples) / sizeof(tuples[0]);
+
+struct tuple *find_tuple(char *ascii) {
+    //printf("find_tuple(), ascii = %s\n", ascii);
+    int i = 0;
+    while ((i < tuples_len) && 
+        strcmp(tuples[i].ascii, ascii)
+    ) {
+        i++;
+    }
+    int found = i < tuples_len;
+    assert(found);
+    return &tuples[i];
+}
+
 struct part {
-    char text[6];
+    struct tuple *tuple;
     struct part *next;
 };
 
-struct part *create_part(char *text) {
+struct part *create_part(struct tuple *t) {
     struct part *p = malloc(sizeof(struct part));
-    strcpy(p->text, text);
+    p->tuple = t;
     p->next = NULL;
     return p;
 }
@@ -27,7 +240,7 @@ struct part *parts = NULL;
 void print_parts() {
     struct part *p = parts;
     while (p->next != NULL) {
-        printf("%s", p->text);
+        printf("[%s]", p->tuple->ascii);
         p = p->next;
     }
     printf("\n");
@@ -48,7 +261,8 @@ void append_part(struct part *new) {
 }
 
 void append_str(char *text) {
-    struct part *p = create_part(text);
+    struct tuple *t = find_tuple(text);
+    struct part *p = create_part(t);
     append_part(p);
 }
 
@@ -79,7 +293,7 @@ void print_parsed(char *s) {
             }
         } else if (state == READ_A) {
             if (s[i] == 'u') {
-                append_str("[au]");
+                append_str("au");
                 state = INIT;
             } else if (s[i] == 'a') {
                 append_ch('a');
@@ -100,7 +314,7 @@ void print_parsed(char *s) {
             }
         } else if (state == READ_C) {
             if (s[i] == 'h') {
-                append_str("[ch]");
+                append_str("ch");
                 state = INIT;
             } else if (s[i] == 'a') {
                 append_ch('c');
@@ -121,10 +335,10 @@ void print_parsed(char *s) {
             }
         } else if (state == READ_E) {
             if (s[i] == 'i') {
-                append_str("[ei]");
+                append_str("ei");
                 state = INIT;
             } else if (s[i] == 'u') {
-                append_str("[eu]");
+                append_str("eu");
                 state = INIT;
             } else if (s[i] == 'a') {
                 append_ch('e');
@@ -147,7 +361,7 @@ void print_parsed(char *s) {
             if (s[i] == 'c') {
                 state = READ_SC;
             } else if (s[i] == 't') {
-                append_str("[st]");
+                append_str("st");
                 state = INIT;
             } else if (s[i] == 'a') {
                 append_ch('s');
@@ -165,7 +379,7 @@ void print_parsed(char *s) {
             }
         } else if (state == READ_SC) {
             if (s[i] == 'h') {
-                append_str("[sch]");
+                append_str("sch");
                 state = INIT;
             } else if (s[i] == 'a') {
                 append_ch('s');
