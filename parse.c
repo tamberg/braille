@@ -272,7 +272,7 @@ void append_ch(char ch) { // TODO: vs. Unicode
 
 // au, eu, ei, ch, sch, st
 
-void print_parsed(char *s) {
+void print_parsed(char *s) { // TODO: vs. Unicode
     int i = 0;
     int state = 0;
     while (s[i] != '\0') {
