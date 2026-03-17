@@ -17,10 +17,6 @@ struct tuple {
 };
 
 struct tuple tuples[] = {
-    {" ", " ", {"○ ○",
-                "○ ○",
-                "○ ○"}
-    },
     {"a", "⠁", {"● ○",
                 "○ ○",
                 "○ ○"}
@@ -211,15 +207,13 @@ struct tuple tuples[] = {
 int tuples_len = sizeof(tuples) / sizeof(tuples[0]);
 
 struct tuple *find_tuple(char *ascii) {
-    printf("find_tuple(), ascii = %s ", ascii);
     int i = 0;
     while (i < tuples_len && 
-        (strcmp(tuples[i].ascii, ascii) == 0)
+        strcmp(tuples[i].ascii, ascii) != 0
     ) {
         i++;
     }
     int found = i < tuples_len;
-    printf("found = %d\n", found);
     assert(found);
     return &tuples[i];
 }
@@ -263,11 +257,13 @@ void append_part(struct part *new) {
 
 void append_str(char *text) {
     struct tuple *t = find_tuple(text);
+    assert(t != NULL);
     struct part *p = create_part(t);
+    assert(p->tuple == t);
     append_part(p);
 }
 
-void append_ch(char ch) {
+void append_ch(char ch) { // TODO: vs. Unicode
     char text[2];
     text[0] = ch;
     text[1] = '\0';
@@ -404,6 +400,9 @@ void print_parsed(char *s) {
 }
 
 int main(void) {
+    assert(strcmp("a", "b") < 0);
+    assert(strcmp("b", "b") == 0);
+    assert(strcmp("b", "a") > 0);
     print_parsed("hello\n");
     print_parsed("schulstress\n");
     print_parsed("ausschuss\n");
