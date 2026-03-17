@@ -232,20 +232,6 @@ struct part *create_part(struct tuple *t) {
 
 struct part *parts = NULL;
 
-void print_parts() {
-    struct part *p = parts;
-    while (p->next != NULL) {
-        printf("[%s]", p->tuple->ascii);
-        p = p->next;
-    }
-    printf("\n");
-    while (p->next != NULL) {
-        printf("[%s]", p->tuple->braille_s);
-        p = p->next;
-    }
-    printf("\n");
-}
-
 void append_part(struct part *new) {
     assert(new != NULL);
     assert(new->next == NULL);
@@ -273,6 +259,26 @@ void append_ch(char ch) { // TODO: vs. Unicode
     text[0] = ch;
     text[1] = '\0';
     append_str(text);
+}
+
+void print_parts() {
+    struct part *p = parts;
+    while (p->next != NULL) {
+        char *s = p->tuple->ascii;
+        if (strlen(s) > 1) {
+            printf("[%s]", s);
+        } else {
+            printf("%s", s);
+        }
+        p = p->next;
+    }
+    printf("\n");
+    p = parts;
+    while (p->next != NULL) {
+        printf("%s", p->tuple->braille_s);
+        p = p->next;
+    }
+    printf("\n");
 }
 
 // au, eu, ei, ch, sch, st
@@ -405,9 +411,6 @@ void print_parsed(char *s) { // TODO: vs. Unicode
 }
 
 int main(void) {
-    assert(strcmp("a", "b") < 0);
-    assert(strcmp("b", "b") == 0);
-    assert(strcmp("b", "a") > 0);
     print_parsed("hello\n");
     print_parsed("schulstress\n");
     print_parsed("ausschuss\n");
