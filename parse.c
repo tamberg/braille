@@ -239,6 +239,11 @@ void print_parts() {
         p = p->next;
     }
     printf("\n");
+    while (p->next != NULL) {
+        printf("[%s]", p->tuple->braille_s);
+        p = p->next;
+    }
+    printf("\n");
 }
 
 void append_part(struct part *new) {
