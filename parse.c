@@ -211,14 +211,15 @@ struct tuple tuples[] = {
 int tuples_len = sizeof(tuples) / sizeof(tuples[0]);
 
 struct tuple *find_tuple(char *ascii) {
-    //printf("find_tuple(), ascii = %s\n", ascii);
+    printf("find_tuple(), ascii = %s ", ascii);
     int i = 0;
-    while ((i < tuples_len) && 
-        strcmp(tuples[i].ascii, ascii)
+    while (i < tuples_len && 
+        (strcmp(tuples[i].ascii, ascii) == 0)
     ) {
         i++;
     }
     int found = i < tuples_len;
+    printf("found = %d\n", found);
     assert(found);
     return &tuples[i];
 }
@@ -410,5 +411,6 @@ int main(void) {
     print_parsed("landeschronik\n");
     print_parsed("streuschaufel\n");
     print_parsed("schmauchspur\n");
+    //print_parsed("zitat “nice”\n");
     return 0;
 }
