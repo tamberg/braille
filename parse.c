@@ -261,13 +261,13 @@ void append_ch(char ch) { // TODO: vs. Unicode
     append_str(text);
 }
 
-void iterate_parts(void(*f)(struct part *p)) {
+void iterate_parts(void(*f)(struct part *p), void(*g)(void)) {
     struct part *p = parts;
     while (p->next != NULL) {
-        f(p);
+        if (f != NULL) { f(p); }
         p = p->next;
     }
-    printf("\n");
+    if (g != NULL) { g(); }
 }
 
 void print_part_ascii(struct part *p) {
@@ -284,24 +284,25 @@ void print_part_braille_s(struct part *p) {
 }
 
 void print_part_braille_l0(struct part *p) {
-    printf("%s", p->tuple->braille_l[0]);
-    printf("  ");
+    printf("%s  ", p->tuple->braille_l[0]);
 }
 
 void print_part_braille_l1(struct part *p) {
-    printf("%s", p->tuple->braille_l[1]);
-    printf("  ");
+    printf("%s  ", p->tuple->braille_l[1]);
 }
 
 void print_part_braille_l2(struct part *p) {
-    printf("%s", p->tuple->braille_l[2]);
-    printf("  ");
+    printf("%s  ", p->tuple->braille_l[2]);
 }
 
 void print_part_braille_l(struct part *p) {
     printf("%s\n", p->tuple->braille_l[0]);
     printf("%s\n", p->tuple->braille_l[1]);
     printf("%s\n", p->tuple->braille_l[2]);
+    printf("\n");
+}
+
+void print_newline(void) {
     printf("\n");
 }
 
@@ -430,24 +431,29 @@ void print_parsed(char *s) { // TODO: vs. Unicode
         }
         i++;
     }
-    iterate_parts(print_part_ascii);
-    iterate_parts(print_part_braille_s);
-    iterate_parts(print_part_braille_l0);
-    iterate_parts(print_part_braille_l1);
-    iterate_parts(print_part_braille_l2);
-    printf("\n");
-    iterate_parts(print_part_braille_l);
+    iterate_parts(print_part_ascii, print_newline);
+    iterate_parts(print_part_braille_s, print_newline);
+    iterate_parts(print_part_braille_l0, print_newline);
+    iterate_parts(print_part_braille_l1, print_newline);
+    iterate_parts(print_part_braille_l2, print_newline);
+    iterate_parts(print_part_braille_l, NULL);
     parts = NULL;
 }
 
-int main(void) {
-    print_parsed("hoi goran\n");
-    print_parsed("schulstress\n");
-    print_parsed("ausschuss\n");
-    print_parsed("spasschronist\n");
-    print_parsed("landeschronik\n");
-    print_parsed("streuschaufel\n");
-    print_parsed("schmauchspur\n");
-    //print_parsed("zitat “nice”\n");
+int main(int argc, char *argv[]) {
+    if (argc == 2) {
+        print_parsed(argv[1]);
+    } else if (argc == 1) {
+        print_parsed("hoi goran\n");
+        print_parsed("schulstress\n");
+        print_parsed("ausschuss\n");
+        print_parsed("spasschronist\n");
+        print_parsed("landeschronik\n");
+        print_parsed("streuschaufel\n");
+        print_parsed("schmauchspur\n");
+        //print_parsed("zitat “nice”\n");
+    } else {
+        printf("usage: %s text\n", argv[0]);
+    }
     return 0;
 }
