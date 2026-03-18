@@ -261,23 +261,47 @@ void append_ch(char ch) { // TODO: vs. Unicode
     append_str(text);
 }
 
-void print_parts() {
+void iterate_parts(void(*f)(struct part *p)) {
     struct part *p = parts;
     while (p->next != NULL) {
-        char *s = p->tuple->ascii;
-        if (strlen(s) > 1) {
-            printf("[%s]", s);
-        } else {
-            printf("%s", s);
-        }
+        f(p);
         p = p->next;
     }
     printf("\n");
-    p = parts;
-    while (p->next != NULL) {
-        printf("%s", p->tuple->braille_s);
-        p = p->next;
+}
+
+void print_part_ascii(struct part *p) {
+    char *s = p->tuple->ascii;
+    if (strlen(s) > 1) {
+        printf("[%s]", s);
+    } else {
+        printf("%s", s);
     }
+}
+
+void print_part_braille_s(struct part *p) {
+    printf("%s", p->tuple->braille_s);
+}
+
+void print_part_braille_l0(struct part *p) {
+    printf("%s", p->tuple->braille_l[0]);
+    printf("  ");
+}
+
+void print_part_braille_l1(struct part *p) {
+    printf("%s", p->tuple->braille_l[1]);
+    printf("  ");
+}
+
+void print_part_braille_l2(struct part *p) {
+    printf("%s", p->tuple->braille_l[2]);
+    printf("  ");
+}
+
+void print_part_braille_l(struct part *p) {
+    printf("%s\n", p->tuple->braille_l[0]);
+    printf("%s\n", p->tuple->braille_l[1]);
+    printf("%s\n", p->tuple->braille_l[2]);
     printf("\n");
 }
 
@@ -406,12 +430,18 @@ void print_parsed(char *s) { // TODO: vs. Unicode
         }
         i++;
     }
-    print_parts();
+    iterate_parts(print_part_ascii);
+    iterate_parts(print_part_braille_s);
+    iterate_parts(print_part_braille_l0);
+    iterate_parts(print_part_braille_l1);
+    iterate_parts(print_part_braille_l2);
+    printf("\n");
+    iterate_parts(print_part_braille_l);
     parts = NULL;
 }
 
 int main(void) {
-    print_parsed("hello\n");
+    print_parsed("hoi goran\n");
     print_parsed("schulstress\n");
     print_parsed("ausschuss\n");
     print_parsed("spasschronist\n");
