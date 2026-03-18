@@ -2,7 +2,8 @@
 #include <string.h>
 
 char *svg_doc_start = 
-    "<svg height=\"100%\" width=\"100%\" xmlns=\"http://www.w3.org/2000/svg\">\n";
+//    "<svg height=\"100%\" width=\"100%\" xmlns=\"http://www.w3.org/2000/svg\">\n";
+    "<svg width=\"%.1fmm\" height=\"%.1fmm\" xmlns=\"http://www.w3.org/2000/svg\">\n";
 
 char *svg_pattern =
     "  <g>\n"
@@ -18,12 +19,12 @@ char *svg_doc_end =
     "</svg>\n";
 
 void print_pattern(unsigned char value, int x, int y) {
-    char *dot1 = (value >> 5) & 1 ? "black" : "none";
-    char *dot2 = (value >> 4) & 1 ? "black" : "none";
-    char *dot3 = (value >> 3) & 1 ? "black" : "none";
-    char *dot4 = (value >> 2) & 1 ? "black" : "none";
-    char *dot5 = (value >> 1) & 1 ? "black" : "none";
-    char *dot6 = (value >> 0) & 1 ? "black" : "none";
+    char *dot1 = (value >> 0) & 1 ? "black" : "none";
+    char *dot2 = (value >> 1) & 1 ? "black" : "none";
+    char *dot3 = (value >> 2) & 1 ? "black" : "none";
+    char *dot4 = (value >> 3) & 1 ? "black" : "none";
+    char *dot5 = (value >> 4) & 1 ? "black" : "none";
+    char *dot6 = (value >> 5) & 1 ? "black" : "none";
 
     printf(svg_pattern, 
         x + 0.0, y + 0.0, dot1,
@@ -64,15 +65,15 @@ int main(void) {
     print_bin("⠓"[2]);
     */
 
-    printf("%s", svg_doc_start);
-    print_pattern(0b00000000, 10, 10);
-    print_pattern(0b00000000, 16, 10);
-    print_pattern(0b00000000, 22, 10);
-    print_pattern(0b00000000, 28, 10);
-    print_pattern(0b00000000, 10, 20);
-    print_pattern(0b00000000, 16, 20);
-    print_pattern(0b00101010, 22, 20);
-    print_pattern(0b00111111, 28, 20);
+    printf(svg_doc_start, 4 + 4 * 6 + 4, 4 + 10 + 4);
+    print_pattern(0b00000001, 4 + 0 * 6, 4);
+    print_pattern(0b00000010, 4 + 1 * 6, 4);
+    print_pattern(0b00000100, 4 + 2 * 6, 4);
+    print_pattern(0b00001000, 4 + 3 * 6, 4);
+    print_pattern(0b00010000, 4 + 0 * 6, 4 + 10);
+    print_pattern(0b00100000, 4 + 1 * 6, 4 + 10);
+    print_pattern(0b00101010, 4 + 2 * 6, 4 + 10);
+    print_pattern(0b00111111, 4 + 3 * 6, 4 + 10);
     printf("%s", svg_doc_end);
     return 0;
 }
