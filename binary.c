@@ -47,30 +47,32 @@ void print_bin(unsigned char value) {
 }
 
 int main(void) {
-   print_bin(0b00000000);
-   print_bin(0b00000001);
-   print_bin(0b00000010);
-   print_bin(0b00000100);
-   print_bin(0b00001000);
-   print_bin(0b00010000);
-   print_bin(0b00100000);
-   print_bin(0b01000000);
-   print_bin(0b10000000);
-   printf("\n");
-   printf("%lu\n", strlen("⠓"));
-   print_bin("⠓"[0]);
-   print_bin("⠓"[1]);
-   print_bin("⠓"[2]);
+    /*
+    print_bin(0b00000000);
+    print_bin(0b00000001);
+    print_bin(0b00000010);
+    print_bin(0b00000100);
+    print_bin(0b00001000);
+    print_bin(0b00010000);
+    print_bin(0b00100000);
+    print_bin(0b01000000);
+    print_bin(0b10000000);
+    printf("\n");
+    printf("%lu\n", strlen("⠓"));
+    print_bin("⠓"[0]);
+    print_bin("⠓"[1]);
+    print_bin("⠓"[2]);
+    */
 
-   printf("%s", svg_doc_start);
-   print_pattern(0b00000000, 0, 0);
-   print_pattern(0b00000000, 6, 0);
-   print_pattern(0b00000000, 12, 0);
-   print_pattern(0b00000000, 18, 0);
-   print_pattern(0b00000000, 0, 10);
-   print_pattern(0b00000000, 6, 10);
-   print_pattern(0b00101010, 12, 10);
-   print_pattern(0b00111111, 18, 10);
-   printf("%s", svg_doc_end);
-   return 0;
+    printf("%s", svg_doc_start);
+    print_pattern(0b00000000, 10, 10);
+    print_pattern(0b00000000, 16, 10);
+    print_pattern(0b00000000, 22, 10);
+    print_pattern(0b00000000, 28, 10);
+    print_pattern(0b00000000, 10, 20);
+    print_pattern(0b00000000, 16, 20);
+    print_pattern(0b00101010, 22, 20);
+    print_pattern(0b00111111, 28, 20);
+    printf("%s", svg_doc_end);
+    return 0;
 }
