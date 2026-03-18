@@ -10,6 +10,12 @@
 #define READ_S 4
 #define READ_SC 5
 
+// 1 4 
+// 2 5
+// 3 6
+
+// 0b111111
+
 struct tuple {
     char *ascii;
     char *braille_s;
@@ -157,6 +163,19 @@ void print_part_braille_l2(struct part *p) {
     printf("%s  ", p->tuple->braille_l[2]);
 }
 
+void print_part_braille_l3(struct part *p) {
+    char *s = p->tuple->ascii;
+    int len = strlen(s);
+    if (len == 1) {
+        printf(" %s ", s);
+    } else if (len == 2) {
+        printf("%s ", s);
+    } else if (len == 3) {
+        printf("%s", s);
+    }
+    printf("  ");
+}
+
 void print_part_braille_l(struct part *p) {
     printf("%s\n", p->tuple->braille_l[0]);
     printf("%s\n", p->tuple->braille_l[1]);
@@ -166,6 +185,10 @@ void print_part_braille_l(struct part *p) {
 
 void print_newline(void) {
     printf("\n");
+}
+
+void print_newlines(void) {
+    printf("\n\n");
 }
 
 // au, eu, ei, ch, sch, st
@@ -293,12 +316,13 @@ void print_parsed(char *s) { // TODO: vs. Unicode
         }
         i++;
     }
-    iterate_parts(print_part_ascii, print_newline);
-    iterate_parts(print_part_braille_s, print_newline);
+    iterate_parts(print_part_ascii, print_newlines);
+    iterate_parts(print_part_braille_s, print_newlines);
     iterate_parts(print_part_braille_l0, print_newline);
     iterate_parts(print_part_braille_l1, print_newline);
     iterate_parts(print_part_braille_l2, print_newline);
-    iterate_parts(print_part_braille_l, NULL);
+    iterate_parts(print_part_braille_l3, print_newlines);
+    //iterate_parts(print_part_braille_l, NULL);
     parts = NULL;
 }
 
