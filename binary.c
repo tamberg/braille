@@ -65,7 +65,7 @@ int main(void) {
     print_bin("⠓"[2]);
     */
 
-    printf(svg_doc_start, 4 + 4 * 6 + 4, 4 + 10 + 4);
+    printf(svg_doc_start, 4 + 3 * 6 + 2.5 + 4, 4 + 10 + 5 + 4);
     print_pattern(0b00000001, 4 + 0 * 6, 4);
     print_pattern(0b00000010, 4 + 1 * 6, 4);
     print_pattern(0b00000100, 4 + 2 * 6, 4);
