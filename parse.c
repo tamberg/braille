@@ -10,11 +10,15 @@
 #define READ_S 4
 #define READ_SC 5
 
+// https://en.wikipedia.org/wiki/Braille_Patterns
+
 // 1 4 
 // 2 5
 // 3 6
+// 7 8
 
-// 0b111111
+// 0b00000000
+//   12345678
 
 struct tuple {
     char *ascii;
