@@ -107,8 +107,7 @@ struct tuple tuples[] = {
     {"ei", "⠩", {"● ●", "○ ○", "○ ●"}, 0b00101001},
     {"ch", "⠹", {"● ●", "○ ●", "○ ●"}, 0b00111001},
     {"sch", "⠱", {"● ○", "○ ●", "○ ●"}, 0b00110001},
-    {"st", "⠾", {"○ ●", "● ●", "● ●"}, 0b00111110},
-    {"\n", "\n", {"", "", "\n"}, 0b00000000}, // TODO
+    {"st", "⠾", {"○ ●", "● ●", "● ●"}, 0b00111110}
 };
 
 int tuples_len = sizeof(tuples) / sizeof(tuples[0]);
@@ -154,6 +153,7 @@ void append_part(struct part *new) {
 }
 
 void append_str(char *text) {
+    printf("append_str, text = %s\n", text);
     struct tuple *t = find_tuple(text);
     assert(t != NULL);
     struct part *p = create_part(t);
@@ -162,10 +162,12 @@ void append_str(char *text) {
 }
 
 void append_ch(char ch) { // TODO: vs. Unicode
-    char text[2];
-    text[0] = ch;
-    text[1] = '\0';
-    append_str(text);
+    if (ch != '\0') {
+        char text[2];
+        text[0] = ch;
+        text[1] = '\0';
+        append_str(text);
+    }
 }
 
 int count_parts() {
@@ -250,7 +252,7 @@ void print_newlines(void) {
 
 void print_parsed(char *s) { // TODO: vs. Unicode
     int i = 0;
-    int state = 0;
+    int state = INIT;
     while (s[i] != '\0') {
         if (state == INIT) {
             if (s[i] == 'a') {
@@ -371,7 +373,19 @@ void print_parsed(char *s) { // TODO: vs. Unicode
         }
         i++;
     }
-    // TODO: handle READ_A, etc.
+    if (state == READ_A) {
+        append_ch('a');
+    } else if (state == READ_C) {
+        append_ch('c');
+    } else if (state == READ_E) {
+        append_ch('e');
+    } else if (state == READ_S) {
+        append_ch('s');
+    } else if (state == READ_SC) {
+        append_ch('s');
+        append_ch('c');
+    }
+
     iterate_parts(print_part_ascii, print_newlines);
     iterate_parts(print_part_braille_s, print_newlines);
     iterate_parts(print_part_braille_l0, print_newline);
