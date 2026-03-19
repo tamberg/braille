@@ -168,16 +168,18 @@ void append_ch(char ch) { // TODO: vs. Unicode
     append_str(text);
 }
 
-void iterate_parts(void(*f)(struct part *p), void(*g)(void)) {
+void iterate_parts(void(*f)(struct part *p), void(*g)(void, int)) {
+    int i = 0;
     struct part *p = parts;
     while (p != NULL) {
-        if (f != NULL) { f(p); }
+        if (f != NULL) { f(p, i); }
         p = p->next;
+        i++;
     }
     if (g != NULL) { g(); }
 }
 
-void print_part_ascii(struct part *p) {
+void print_part_ascii(struct part *p, int x) {
     char *s = p->tuple->ascii;
     if (strlen(s) > 1) {
         printf("[%s]", s);
@@ -186,23 +188,23 @@ void print_part_ascii(struct part *p) {
     }
 }
 
-void print_part_braille_s(struct part *p) {
+void print_part_braille_s(struct part *p, int x) {
     printf("%s", p->tuple->braille_s);
 }
 
-void print_part_braille_l0(struct part *p) {
+void print_part_braille_l0(struct part *p, int x) {
     printf("%s  ", p->tuple->braille_l[0]);
 }
 
-void print_part_braille_l1(struct part *p) {
+void print_part_braille_l1(struct part *p, int x) {
     printf("%s  ", p->tuple->braille_l[1]);
 }
 
-void print_part_braille_l2(struct part *p) {
+void print_part_braille_l2(struct part *p, int x) {
     printf("%s  ", p->tuple->braille_l[2]);
 }
 
-void print_part_braille_l3(struct part *p) {
+void print_part_braille_l3(struct part *p, int x) {
     char *s = p->tuple->ascii;
     int len = strlen(s);
     if (len == 1) {
@@ -215,18 +217,16 @@ void print_part_braille_l3(struct part *p) {
     printf("  ");
 }
 
-void print_part_braille_l(struct part *p) {
+void print_part_braille_l(struct part *p, int x) {
     printf("%s\n", p->tuple->braille_l[0]);
     printf("%s\n", p->tuple->braille_l[1]);
     printf("%s\n", p->tuple->braille_l[2]);
     printf("\n");
 }
 
-int braille_svg_x;
-
-void print_part_braille_bits(struct part *p) {
+void print_part_braille_bits(struct part *p, int i) {
     //printf("%s  ", p->tuple->braille_bits);
-    print_pattern(p->tuple->braille_bits, 4 + braille_svg_x * 6, 4);
+    print_pattern(p->tuple->braille_bits, 4 + i * 6, 4);
     braille_svg_x += 1;
 }
 
