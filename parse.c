@@ -168,6 +168,16 @@ void append_ch(char ch) { // TODO: vs. Unicode
     append_str(text);
 }
 
+int count_parts() {
+    int i = 0;
+    struct part *p = parts;
+    while (p != NULL) {
+        p = p->next;
+        i++;
+    }
+    return i;
+}
+
 void iterate_parts(void(*f)(struct part *, int), void(*g)(void)) {
     int i = 0;
     struct part *p = parts;
@@ -371,8 +381,8 @@ void print_parsed(char *s) { // TODO: vs. Unicode
     //iterate_parts(print_part_braille_l, NULL);
 
     // svg
-    int len = 32;//?;
-    printf(svg_doc_start, 4.0 + (len * 6.0) + 2.5 + 4.0, 4.0 + (0 * 10.0) + 5.0 + 4.0);
+    int n = count_parts() - 1;
+    printf(svg_doc_start, 4.0 + (n * 6.0) + 2.5 + 4.0, 4.0 + (0 * 10.0) + 5.0 + 4.0);
     iterate_parts(print_part_braille_bits, NULL);
     printf("%s", svg_doc_end);
 
