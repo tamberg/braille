@@ -168,7 +168,7 @@ void append_ch(char ch) { // TODO: vs. Unicode
     append_str(text);
 }
 
-void iterate_parts(void(*f)(struct part *p), void(*g)(void, int)) {
+void iterate_parts(void(*f)(struct part *, int), void(*g)(void)) {
     int i = 0;
     struct part *p = parts;
     while (p != NULL) {
@@ -225,9 +225,7 @@ void print_part_braille_l(struct part *p, int x) {
 }
 
 void print_part_braille_bits(struct part *p, int i) {
-    //printf("%s  ", p->tuple->braille_bits);
     print_pattern(p->tuple->braille_bits, 4 + i * 6, 4);
-    braille_svg_x += 1;
 }
 
 void print_newline(void) {
@@ -375,7 +373,7 @@ void print_parsed(char *s) { // TODO: vs. Unicode
     // svg
     int len = 32;//?;
     printf(svg_doc_start, 4.0 + (len * 6.0) + 2.5 + 4.0, 4.0 + (0 * 10.0) + 5.0 + 4.0);
-    iterate_parts(print_part_braille_bits, print_newline);
+    iterate_parts(print_part_braille_bits, NULL);
     printf("%s", svg_doc_end);
 
     parts = NULL;
