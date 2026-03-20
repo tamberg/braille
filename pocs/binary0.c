@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <string.h>
 
 void print_bin(unsigned char value) {
     printf("0b%d%d%d%d%d%d%d%d\n",
