@@ -31,7 +31,7 @@ Expected output.
 ```
 
 ## Learn
-Check these simplified versions of the code.
+Check these simplified building blocks of the code.
 
 - [pocs/braille0.c](pocs/braille0.c) uses a big if statement to translate input.
     ```
