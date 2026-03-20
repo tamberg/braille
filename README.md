@@ -38,82 +38,10 @@ $ ./braille -svg "hoi goran"
 Expected output.
 ```
 <svg width="58.5mm" height="13.0mm" xmlns="http://www.w3.org/2000/svg">
-  <g>
-    <circle r="0.8mm" cx="4.0mm" cy="4.0mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="4.0mm" cy="6.5mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="4.0mm" cy="9.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="6.5mm" cy="4.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="6.5mm" cy="6.5mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="6.5mm" cy="9.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-  </g>
-  <g>
-    <circle r="0.8mm" cx="10.0mm" cy="4.0mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="10.0mm" cy="6.5mm" fill="none" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="10.0mm" cy="9.0mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="12.5mm" cy="4.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="12.5mm" cy="6.5mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="12.5mm" cy="9.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-  </g>
-  <g>
-    <circle r="0.8mm" cx="16.0mm" cy="4.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="16.0mm" cy="6.5mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="16.0mm" cy="9.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="18.5mm" cy="4.0mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="18.5mm" cy="6.5mm" fill="none" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="18.5mm" cy="9.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-  </g>
-  <g>
-    <circle r="0.8mm" cx="22.0mm" cy="4.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="22.0mm" cy="6.5mm" fill="none" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="22.0mm" cy="9.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="24.5mm" cy="4.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="24.5mm" cy="6.5mm" fill="none" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="24.5mm" cy="9.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-  </g>
-  <g>
-    <circle r="0.8mm" cx="28.0mm" cy="4.0mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="28.0mm" cy="6.5mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="28.0mm" cy="9.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="30.5mm" cy="4.0mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="30.5mm" cy="6.5mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="30.5mm" cy="9.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-  </g>
-  <g>
-    <circle r="0.8mm" cx="34.0mm" cy="4.0mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="34.0mm" cy="6.5mm" fill="none" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="34.0mm" cy="9.0mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="36.5mm" cy="4.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="36.5mm" cy="6.5mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="36.5mm" cy="9.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-  </g>
-  <g>
-    <circle r="0.8mm" cx="40.0mm" cy="4.0mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="40.0mm" cy="6.5mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="40.0mm" cy="9.0mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="42.5mm" cy="4.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="42.5mm" cy="6.5mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="42.5mm" cy="9.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-  </g>
-  <g>
-    <circle r="0.8mm" cx="46.0mm" cy="4.0mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="46.0mm" cy="6.5mm" fill="none" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="46.0mm" cy="9.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="48.5mm" cy="4.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="48.5mm" cy="6.5mm" fill="none" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="48.5mm" cy="9.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-  </g>
-  <g>
-    <circle r="0.8mm" cx="52.0mm" cy="4.0mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="52.0mm" cy="6.5mm" fill="none" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="52.0mm" cy="9.0mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="54.5mm" cy="4.0mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="54.5mm" cy="6.5mm" fill="black" stroke="black" stroke-width="0.01mm" />
-    <circle r="0.8mm" cx="54.5mm" cy="9.0mm" fill="none" stroke="black" stroke-width="0.01mm" />
-  </g>
-</svg>
+...
 ```
 
-Use `> file.svg` to save SVG output.
+Use `>` to save SVG output, e.g. to [file.svg](file.svg).
 ```
 $ ./braille -svg "hoi goran" > file.svg
 $ open file.svg
