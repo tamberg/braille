@@ -113,6 +113,12 @@ Expected output.
 </svg>
 ```
 
+Use `> file.svg` to save SVG output.
+```
+$ ./braille -svg "hoi goran" > file.svg
+$ open file.svg
+```
+
 ## Learn
 Check these simplified building blocks of the code.
 
