@@ -44,7 +44,6 @@ Expected output.
 Use `>` to save SVG output, e.g. to [file.svg](file.svg).
 ```
 $ ./braille -svg "hoi goran" > file.svg
-$ open file.svg
 ```
 
 ## Learn
