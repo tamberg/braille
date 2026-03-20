@@ -49,21 +49,21 @@ $ ./braille -svg "hoi goran" > file.svg
 ## Learn
 Check these simplified building blocks of the code.
 
-- [pocs/braille0.c](pocs/braille0.c) uses a big if statement to translate input.
+- [pocs/lookup.c](pocs/lookup.c) uses a big if statement to translate input.
     ```
     $ cd pocs
-    $ gcc -o braille0 braille0.c
+    $ gcc -o lookup lookup.c
     $ ./braille0
     ```
 
     ```
     ⠓⠕⠊ ⠛⠕⠗⠁⠝
     ```
-- [pocs/binary0.c](pocs/binary0.c) prints the binary input, e.g. `0x00000001`.
+- [pocs/binary.c](pocs/binary.c) prints the binary input, e.g. `0x00000001`.
     ```
     $ cd pocs
-    $ gcc -o binary0 binary0.c
-    $ ./binary0
+    $ gcc -o binary binary.c
+    $ ./binary
     ```
 
     ```
@@ -77,11 +77,11 @@ Check these simplified building blocks of the code.
     0b10000000
     ```
 
-- [pocs/parse0.c](pocs/parse0.c) splits the input into "full text" groups.
+- [pocs/parser.c](pocs/parser.c) splits the input into "full text" groups.
     ```
     $ cd pocs
-    $ gcc -o parse0 parse0.c
-    $ ./parse0
+    $ gcc -o parser parser.c
+    $ ./parser
     ```
 
     ```
