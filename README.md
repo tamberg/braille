@@ -53,7 +53,7 @@ Check these simplified building blocks of the code.
     ```
     $ cd pocs
     $ gcc -o lookup lookup.c
-    $ ./braille0
+    $ ./lookup
     ```
 
     ```
