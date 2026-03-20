@@ -20,11 +20,11 @@
 // 0b00000000
 //   87654321
 
-char *svg_doc_start = 
+char *svg_start = 
 //    "<svg height=\"100%\" width=\"100%\" xmlns=\"http://www.w3.org/2000/svg\">\n";
     "<svg width=\"%.1fmm\" height=\"%.1fmm\" xmlns=\"http://www.w3.org/2000/svg\">\n";
 
-char *svg_pattern =
+char *svg_group =
     "  <g>\n"
     "    <circle r=\"0.8mm\" cx=\"%.1fmm\" cy=\"%.1fmm\" fill=\"%s\" stroke=\"black\" stroke-width=\"0.01mm\" />\n"
     "    <circle r=\"0.8mm\" cx=\"%.1fmm\" cy=\"%.1fmm\" fill=\"%s\" stroke=\"black\" stroke-width=\"0.01mm\" />\n"
@@ -34,10 +34,10 @@ char *svg_pattern =
     "    <circle r=\"0.8mm\" cx=\"%.1fmm\" cy=\"%.1fmm\" fill=\"%s\" stroke=\"black\" stroke-width=\"0.01mm\" />\n"
     "  </g>\n";
 
-char *svg_doc_end = 
+char *svg_end = 
     "</svg>\n";
 
-void print_pattern(unsigned char value, int x, int y) {
+void print_svg_group(unsigned char value, int x, int y) {
     char *dot1 = (value >> 0) & 1 ? "black" : "none";
     char *dot2 = (value >> 1) & 1 ? "black" : "none";
     char *dot3 = (value >> 2) & 1 ? "black" : "none";
@@ -45,7 +45,7 @@ void print_pattern(unsigned char value, int x, int y) {
     char *dot5 = (value >> 4) & 1 ? "black" : "none";
     char *dot6 = (value >> 5) & 1 ? "black" : "none";
 
-    printf(svg_pattern, 
+    printf(svg_group, 
         x + 0.0, y + 0.0, dot1,
         x + 0.0, y + 2.5, dot2,
         x + 0.0, y + 5.0, dot3,
@@ -239,8 +239,8 @@ void print_part_braille_l(struct part *p, int x) {
     printf("\n");
 }
 
-void print_part_braille_bits(struct part *p, int i) {
-    print_pattern(p->tuple->braille_bits, 4 + i * 6, 4);
+void print_part_braille_svg_group(struct part *p, int i) {
+    print_svg_group(p->tuple->braille_bits, 4 + i * 6, 4);
 }
 
 void print_newline(void) {
@@ -405,9 +405,9 @@ void print_braille_text(char *text) {
 void print_braille_svg(char *text) {
     parse_text(text);
     int n = count_parts() - 1;
-    printf(svg_doc_start, 4.0 + (n * 6.0) + 2.5 + 4.0, 4.0 + (0 * 10.0) + 5.0 + 4.0);
-    iterate_parts(print_part_braille_bits, NULL);
-    printf("%s", svg_doc_end);
+    printf(svg_start, 4.0 + (n * 6.0) + 2.5 + 4.0, 4.0 + (0 * 10.0) + 5.0 + 4.0);
+    iterate_parts(print_part_braille_svg_group, NULL);
+    printf("%s", svg_end);
     parts = NULL;
 }
 
