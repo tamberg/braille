@@ -153,7 +153,7 @@ void append_part(struct part *new) {
 }
 
 void append_str(char *text) {
-    printf("append_str, text = %s\n", text);
+    //printf("append_str, text = %s\n", text);
     struct tuple *t = find_tuple(text);
     assert(t != NULL);
     struct part *p = create_part(t);
@@ -250,7 +250,7 @@ void print_newlines(void) {
 
 // au, eu, ei, ch, sch, st
 
-void print_parsed(char *s) { // TODO: vs. Unicode
+void parse_text(char *s) { // TODO: vs. Unicode
     int i = 0;
     int state = INIT;
     while (s[i] != '\0') {
@@ -385,7 +385,10 @@ void print_parsed(char *s) { // TODO: vs. Unicode
         append_ch('s');
         append_ch('c');
     }
+}
 
+void print_braille_text(char *text) {
+    parse_text(text);    
     iterate_parts(print_part_ascii, print_newlines);
     iterate_parts(print_part_braille_s, print_newlines);
     iterate_parts(print_part_braille_l0, print_newline);
@@ -393,30 +396,29 @@ void print_parsed(char *s) { // TODO: vs. Unicode
     iterate_parts(print_part_braille_l2, print_newline);
     iterate_parts(print_part_braille_l3, print_newlines);
     //iterate_parts(print_part_braille_l, NULL);
+    parts = NULL;
+}
 
-    // svg
+void print_braille_svg(char *text) {
+    parse_text(text);
     int n = count_parts() - 1;
     printf(svg_doc_start, 4.0 + (n * 6.0) + 2.5 + 4.0, 4.0 + (0 * 10.0) + 5.0 + 4.0);
     iterate_parts(print_part_braille_bits, NULL);
     printf("%s", svg_doc_end);
-
     parts = NULL;
 }
 
 int main(int argc, char *argv[]) {
     if (argc == 2) {
-        print_parsed(argv[1]);
-    } else if (argc == 1) {
-        print_parsed("hoi goran");
-        print_parsed("schulstress");
-        print_parsed("ausschuss");
-        print_parsed("spasschronist");
-        print_parsed("landeschronik");
-        print_parsed("streuschaufel");
-        print_parsed("schmauchspur");
-        //print_parsed("zitat “nice”");
+        char *text = argv[1];
+        print_braille_text(text);
+    } else if (argc == 3) {
+        char *opt = argv[1];
+        char *text = argv[2];
+        assert(strcmp(opt, "-svg") == 0);
+        print_braille_svg(text);
     } else {
-        printf("usage: %s text\n", argv[0]);
+        printf("usage: %s [-svg] text\n", argv[0]);
     }
     return 0;
 }
