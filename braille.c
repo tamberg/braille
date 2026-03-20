@@ -61,6 +61,9 @@ struct tuple {
     unsigned char braille_bits;
 };
 
+// https://en.wikipedia.org/wiki/Braille_ASCII for Unicode, and
+// https://www.sbs.ch/fileadmin/braille200/Braille-Alphabet.pdf
+
 struct tuple tuples[] = {
     {"a", "⠁", {"● ○", "○ ○", "○ ○"}, 0b00000001},
     {"b", "⠃", {"● ○", "● ○", "○ ○"}, 0b00000011},
