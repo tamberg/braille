@@ -54,9 +54,21 @@ void print_svg_group(unsigned char value, int x, int y) {
 }
 
 char *scad_module =
-    "module pattern(d1, d2, d3, d4, d5, d6) {\n" 
-    "    ...\n"
-    "}\n\n";
+    "$fn = 36;\n"
+    "h_base = 2;\n"
+    "h_dot = 0.6;\n"
+    "r_dot = 0.8;\n"
+    "\n"
+    "module pattern(d1, d2, d3, d4, d5, d6) {\n"
+    "    if (d1) { translate([0.0, 5.0, 0]) cylinder(h_dot, r_dot, r_dot); }\n"
+    "     if (d2) { translate([0.0, 2.5, 0]) cylinder(h_dot, r_dot, r_dot); }\n"
+    "     if (d3) { translate([0.0, 0.0, 0]) cylinder(h_dot, r_dot, r_dot); }\n"
+    "     if (d4) { translate([2.5, 5.0, 0]) cylinder(h_dot, r_dot, r_dot); }\n"
+    "     if (d5) { translate([2.5, 2.5, 0]) cylinder(h_dot, r_dot, r_dot); }\n"
+    "     if (d6) { translate([2.5, 0.0, 0]) cylinder(h_dot, r_dot, r_dot); }\n"
+    "}\n"
+    "\n"
+    "cube([58.5, 13.0, h_base]);\n";
 
 char *scad_object =
     "translate(%1.f, %1.f) pattern(%d, %d, %d, %d, %d, %d);\n";
