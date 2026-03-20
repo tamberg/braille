@@ -30,6 +30,23 @@ Expected output.
  h     o     i           g     o     r     a     n
 ```
 
+Use `-svg` to create SVG output.
+```
+$ ./braille -svg "hoi goran"
+```
+
+Expected output.
+```
+<svg width="58.5mm" height="13.0mm" xmlns="http://www.w3.org/2000/svg">
+...
+```
+
+Use `>` to save SVG output, e.g. to [file.svg](file.svg).
+```
+$ ./braille -svg "hoi goran" > file.svg
+$ open file.svg
+```
+
 ## Learn
 Check these simplified building blocks of the code.
 
