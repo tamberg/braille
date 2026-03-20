@@ -46,10 +46,8 @@ Check these simplified versions of the code.
 
 - [pocs/braille0.c](pocs/braille0.c) uses a big if statement to translate input.
     ```
+    $ cd pocs
     $ gcc -o braille0 braille0.c
-    ```
-
-    ```
     $ ./braille0
     ```
 
@@ -58,10 +56,8 @@ Check these simplified versions of the code.
     ```
 - [pocs/binary0.c](pocs/binary0.c) prints the binary input, e.g. `0x00000001`.
     ```
+    $ cd pocs
     $ gcc -o binary0 binary0.c
-    ```
-
-    ```
     $ ./binary0
     ```
 
@@ -78,10 +74,8 @@ Check these simplified versions of the code.
 
 - [pocs/parse0.c](pocs/parse0.c) splits the input into "full text" groups.
     ```
+    $ cd pocs
     $ gcc -o parse0 parse0.c
-    ```
-
-    ```
     $ ./parse0
     ```
 
