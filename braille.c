@@ -21,7 +21,6 @@
 //   87654321
 
 char *svg_start = 
-//    "<svg height=\"100%\" width=\"100%\" xmlns=\"http://www.w3.org/2000/svg\">\n";
     "<svg width=\"%.1fmm\" height=\"%.1fmm\" xmlns=\"http://www.w3.org/2000/svg\">\n";
 
 char *svg_group =
@@ -52,6 +51,25 @@ void print_svg_group(unsigned char value, int x, int y) {
         x + 2.5, y + 0.0, dot4,
         x + 2.5, y + 2.5, dot5,
         x + 2.5, y + 5.0, dot6);
+}
+
+char *scad_module =
+    "module pattern(d1, d2, d3, d4, d5, d6) {\n" 
+    "    ...\n"
+    "}\n\n";
+
+char *scad_object =
+    "translate(%1.f, %1.f) pattern(%d, %d, %d, %d, %d, %d);\n";
+
+void print_scad_object(unsigned char value, int x, int y) {
+    int dot1 = (value >> 0) & 1;
+    int dot2 = (value >> 1) & 1;
+    int dot3 = (value >> 2) & 1;
+    int dot4 = (value >> 3) & 1;
+    int dot5 = (value >> 4) & 1;
+    int dot6 = (value >> 5) & 1;
+
+    printf(scad_object, x + 0.0, y + 0.0, dot1, dot2, dot3, dot4, dot5, dot6);
 }
 
 struct tuple {
@@ -243,6 +261,10 @@ void print_part_braille_svg_group(struct part *p, int i) {
     print_svg_group(p->tuple->braille_bits, 4 + i * 6, 4);
 }
 
+void print_part_braille_scad_object(struct part *p, int i) {
+    print_scad_object(p->tuple->braille_bits, 4 + i * 6, 4);
+}
+
 void print_newline(void) {
     printf("\n");
 }
@@ -411,6 +433,14 @@ void print_braille_svg(char *text) {
     parts = NULL;
 }
 
+void print_braille_scad(char *text) {
+    parse_text(text);
+    int n = count_parts() - 1;
+    printf(scad_module, 4.0 + (n * 6.0) + 2.5 + 4.0, 4.0 + (0 * 10.0) + 5.0 + 4.0);
+    iterate_parts(print_part_braille_scad_object, NULL);
+    parts = NULL;
+}
+
 int main(int argc, char *argv[]) {
     if (argc == 2) {
         char *text = argv[1];
@@ -418,10 +448,13 @@ int main(int argc, char *argv[]) {
     } else if (argc == 3) {
         char *opt = argv[1];
         char *text = argv[2];
-        assert(strcmp(opt, "-svg") == 0);
-        print_braille_svg(text);
+        if (strcmp(opt, "-svg") == 0) {
+            print_braille_svg(text);
+        } else if (strcmp(opt, "-scad") == 0) {
+            print_braille_scad(text);
+        }
     } else {
-        printf("usage: %s [-svg] text\n", argv[0]);
+        printf("usage: %s [-svg|-scad] text\n", argv[0]);
     }
     return 0;
 }
