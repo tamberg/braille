@@ -71,7 +71,7 @@ char *scad_module =
     "cube([58.5, 13.0, h_base]);\n";
 
 char *scad_object =
-    "translate(%1.f, %1.f) pattern(%d, %d, %d, %d, %d, %d);\n";
+    "translate([%1.f, %1.f, h_base]) pattern(%d, %d, %d, %d, %d, %d);\n";
 
 void print_scad_object(unsigned char value, int x, int y) {
     int dot1 = (value >> 0) & 1;
