@@ -66,6 +66,14 @@ Check these simplified versions of the code.
     ```
 
     ```
+    0b00000001
+    0b00000010
+    0b00000100
+    0b00001000
+    0b00010000
+    0b00100000
+    0b01000000
+    0b10000000
     ```
 
 - [pocs/parse0.c](pocs/parse0.c) splits the input into "full text" groups.
@@ -78,4 +86,11 @@ Check these simplified versions of the code.
     ```
 
     ```
+    hello
+    [sch]ul[st]ress
+    [au]s[sch]uss
+    spas[sch]roni[st]
+    lande[sch]ronik
+    [st]r[eu][sch][au]fel
+    [sch]m[au][ch]spur    
     ```
