@@ -44,7 +44,7 @@ Expected output.
 ## Learn
 Check these simplified versions of the code.
 
-- [braille0.c](braille0.c) uses a big if statement, hard coded text.
+- [pocs/braille0.c](pocs/braille0.c) uses a big if statement to translate input.
     ```
     $ gcc -o braille0 braille0.c
     ```
@@ -56,15 +56,26 @@ Check these simplified versions of the code.
     ```
     ⠓⠕⠊ ⠛⠕⠗⠁⠝
     ```
-- [braille1.c](braille1.c) uses an array of strings, calculated index.
+- [pocs/binary0.c](pocs/binary0.c) prints the binary input, e.g. `0x00000001`.
     ```
-    $ gcc -o braille1 braille1.c
-    ```
-
-    ```
-    $ ./braille1 "hoi goran"
+    $ gcc -o binary0 binary0.c
     ```
 
     ```
-    ⠓⠕⠊ ⠛⠕⠗⠁⠝
+    $ ./binary0
+    ```
+
+    ```
+    ```
+
+- [pocs/parse0.c](pocs/parse0.c) splits the input into "full text" groups.
+    ```
+    $ gcc -o parse0 parse0.c
+    ```
+
+    ```
+    $ ./parse0
+    ```
+
+    ```
     ```
