@@ -35,7 +35,7 @@ Use `-svg` and `>` to save SVG output, e.g. to [file.svg](file.svg).
 $ ./braille -svg "hoi goran" > file.svg
 ```
 
-Use  `-svg` and `>` to save OpenSCAD output, e.g. to [file.scad](file.scad).
+Use  `-scad` and `>` to save OpenSCAD output, e.g. to [file.scad](file.scad).
 ```
 $ ./braille -scad "hoi goran" > file.scad
 ```
