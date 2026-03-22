@@ -11,8 +11,9 @@
 
 void print_parsed(char *s) {
     int i = 0;
+    int done = 0;
     int state = 0;
-    while (s[i] != '\0') {
+    while (!done) {
         if (state == INIT) {
             if (s[i] == 'a') {
                 state = READ_A;
@@ -122,12 +123,13 @@ void print_parsed(char *s) {
                 state = INIT;
             }
         }
+        done = s[i] == '\0';
         i++;
     }
-    // TODO: fix "abc"
 }
 
 int main(void) {
+    print_parsed("abc"); printf("\n");
     print_parsed("hello\n");
     print_parsed("schulstress\n");
     print_parsed("ausschuss\n");
