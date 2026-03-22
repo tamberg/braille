@@ -289,8 +289,9 @@ void print_newlines(void) {
 
 void parse_text(char *s) { // TODO: vs. Unicode
     int i = 0;
+    int done = 0;
     int state = INIT;
-    while (s[i] != '\0') {
+    while (!done) {
         if (state == INIT) {
             if (s[i] == 'a') {
                 state = READ_A;
@@ -408,19 +409,8 @@ void parse_text(char *s) { // TODO: vs. Unicode
                 state = INIT;
             }
         }
+        done = s[i] == '\0';
         i++;
-    }
-    if (state == READ_A) {
-        append_ch('a');
-    } else if (state == READ_C) {
-        append_ch('c');
-    } else if (state == READ_E) {
-        append_ch('e');
-    } else if (state == READ_S) {
-        append_ch('s');
-    } else if (state == READ_SC) {
-        append_ch('s');
-        append_ch('c');
     }
 }
 
