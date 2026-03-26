@@ -68,7 +68,7 @@ char *scad_module =
     "    if (d6) { translate([2.5, 0.0, 0]) cylinder(h_dot, r_dot, r_dot); }\n"
     "}\n"
     "\n"
-    "cube([58.5, 13.0, h_base]);\n";
+    "cube([%1.f, %1.f, h_base]);\n";
 
 char *scad_object =
     "translate([%1.f, %1.f, h_base]) pattern(%d, %d, %d, %d, %d, %d);\n";
