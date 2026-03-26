@@ -64,9 +64,12 @@ void layout_words(int n){
     while (w != NULL) {
         int len = strlen(w->text);
         if (r > len) {
-            printf("%s*", w->text);
-            r -= len;            
-            r--;   
+            printf("%s", w->text);
+            r -= len;
+            if (w->next != NULL) {
+                printf("*");
+                r--;
+            }
             w = w->next;
         } else if (r == len) {
             printf("%s", w->text);
@@ -82,13 +85,9 @@ void layout_words(int n){
                 r = n;
             } else {
                 assert(0); // not yet implemented
+                // TODO: split long words
             }
-            //printf("%s*", w->text);
-            //r--;
-// TODO: split word
         }
-        //r -= len;
-        //w = w->next;
     }
 }
 
