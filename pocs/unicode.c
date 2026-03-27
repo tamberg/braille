@@ -7,5 +7,9 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < len; i++) {
         printf("%#02x\n", 0x000000ff & text[i]);
     }
+    for (int j = 0; j < len; j++) {
+        printf("%c", text[j]);
+    }
+    printf("\n");
     return 0;
 }
