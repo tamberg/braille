@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <assert.h>
 
 #define INIT 0
 #define READ_A 1
@@ -6,6 +7,7 @@
 #define READ_E 3
 #define READ_S 4
 #define READ_SC 5
+#define READ_0xC3 6
 
 // au, eu, ei, ch, sch, st
 
@@ -23,6 +25,8 @@ void print_parsed(char *s) {
                 state = READ_E;
             } else if (s[i] == 's') {
                 state = READ_S;
+            } else if (((unsigned char) s[i]) == 0xc3) { // ä, ö, ü, ...
+                state = READ_0xC3;
             } else {
                 printf("%c", s[i]);
             }
@@ -122,6 +126,20 @@ void print_parsed(char *s) {
                 printf("sc%c", s[i]);
                 state = INIT;
             }
+        } else if (state == READ_0xC3) {
+            if (((unsigned char) s[i]) == 0xa4) { // ä
+                printf("ä");
+                state = INIT;
+            } else if (((unsigned char) s[i]) == 0xb6) { // ö
+                printf("ö");
+                state = INIT;
+            } else if (((unsigned char) s[i]) == 0xbc) { // ü
+                printf("ü");
+                state = INIT;
+            } else {
+                printf("%#02x\n", 0x000000ff & s[i]);
+                assert(0); // not yet impl
+            }
         }
         done = s[i] == '\0';
         i++;
@@ -137,5 +155,6 @@ int main(void) {
     print_parsed("landeschronik\n");
     print_parsed("streuschaufel\n");
     print_parsed("schmauchspur\n");
+    print_parsed("äüö\n");
     return 0;
 }
