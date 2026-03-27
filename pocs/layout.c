@@ -3,6 +3,10 @@
 #include <string.h>
 #include <assert.h>
 
+#define TODO 0
+#define SPACE "_"
+#define FILL "_"
+
 struct word {
     char text[32];
     struct word *next;
@@ -30,7 +34,6 @@ void parse_words(char *text) {
         w->next = NULL;
         int j = 0;
         while (text[i] != '\0' && text[i] != ' ') {
-            //printf("%c\n", text[i]);
             w->text[j] = text[i];
             i++;
             j++;
@@ -53,10 +56,10 @@ void print_words(){
 }
 
 // 01234567 n = 8
-// hello,** 6 < n
-// this*is* 4 < n, 2 < r = 3 - 4 - 1
-// a*wonder 1 < n, 9 > n
-// ful*hack 3 < n, 4 <= 4
+// hello,__ 6 < n
+// this_is_ 4 < n, 2 < r = 3 - 4 - 1
+// a_wonder 1 < n, 9 > n
+// ful_hack 3 < n, 4 <= 4
 
 void layout_words(int n){
     int r = n;
@@ -67,7 +70,7 @@ void layout_words(int n){
             printf("%s", w->text);
             r -= len;
             if (w->next != NULL) {
-                printf("*");
+                printf("%s", SPACE);
                 r--;
             }
             w = w->next;
@@ -78,14 +81,13 @@ void layout_words(int n){
         } else { // r < len
             if (r < n) {
                 while (r > 0) {
-                    printf("$");
+                    printf("%s", FILL);
                     r--;
                 }
                 printf("\n");
                 r = n;
             } else {
-                assert(0); // not yet implemented
-                // TODO: split long words
+                assert(TODO); // split long words
             }
         }
     }
