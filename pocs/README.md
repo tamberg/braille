@@ -32,7 +32,7 @@ Simplified building blocks of the code.
     ```
 
 ## Unicode
-- [unicode.c](unicode.c) prints the hex value of a Unicode character.
+- [unicode.c](unicode.c) prints the hex values of a Unicode character.
 
     ```
     $ gcc -o unicode unicode.c
