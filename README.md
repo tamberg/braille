@@ -41,4 +41,4 @@ $ ./braille -scad "hoi goran" > file.scad
 ```
 
 ## Learn
-Check [these simplified building blocks](pocs) of the code.
+Check [these simplified building blocks](pocs/README.md) of the code.
