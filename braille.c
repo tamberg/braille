@@ -262,7 +262,11 @@ void print_part_braille_l3(struct part *p, int x) {
     char *s = p->tuple->ascii;
     int len;
     if ((unsigned char) s[0] == 0xc3) {
-        len = 1;
+        if (s[2] == '\0') {
+            len = 1;
+        } else {
+            len = 2;
+        }
     } else {
         len = strlen(s);
     }
