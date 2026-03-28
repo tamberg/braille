@@ -61,11 +61,11 @@ Simplified building blocks of the code.
     [sch]ul[st]ress
     [au]s[sch]uss
     spas[sch]roni[st]
-    spaß[ch]roni[st]
+    spa[ß][ch]roni[st]
     lande[sch]ronik
     [st]r[eu][sch][au]fel
     [sch]m[au][ch]spur
-    äußer[st]
+    [äu][ß]er[st]
     #1 #2 #3
     #1825
     ```
