@@ -30,7 +30,7 @@ Expected output.
  h     o     i           g     o     r     a     n
 ```
 
-## Features
+# Features
 In general, `braille` translates to Swiss Braille Volltext.
 
 - [Letters](#letters)
@@ -40,7 +40,7 @@ In general, `braille` translates to Swiss Braille Volltext.
 - [SVG Output](#svg-output)
 - [STL via OpenSCAD](#stl-via-openscad)
 
-### Letters
+## Letters
 Use lower case letters `a` to `z`.
 ```
 $ ./braille "abcdefghijklmnopqrs tuvwxyz"
@@ -56,7 +56,7 @@ Expected output.
  a    b    c    d    e    f    g    h    i    j    k    l    m    n    o    p    q    r    s         t    u    v    w    x    y    z   
 ```
 
-### Umlauts
+## Umlauts
 Use Unicode for `ä`, `ö`, `ü` and `ß`.
 ```
 $  ./braille "äöüß"
@@ -72,7 +72,7 @@ Expected output.
  ä    ö    ü    ß
 ```
 
-### Volltext
+## Volltext
 The letters `äu`, `au`, `ch`, `ei`, `eu`, `ie`, `sch` and `st` are grouped.
 ```
 $ ./braille "äuaucheieuieschst" 
@@ -88,7 +88,7 @@ Expected output.
 äu   au   ch   ei   eu   ie   sch  st
 ```
 
-### Numbers
+## Numbers
 The digits `0` to `9` of each number are prepended by a number sign `#`.
 ```
 $ ./braille "1234567890"
@@ -104,13 +104,13 @@ Expected output.
  #    1    2    3    4    5    6    7    8    9    0   
 ```
 
-### SVG Output
+## SVG Output
 Use `-svg` and `>` to save SVG output, e.g. to [file.svg](file.svg).
 ```
 $ ./braille -svg "hoi goran" > file.svg
 ```
 
-### STL via OpenSCAD
+## STL via OpenSCAD
 Use  `-scad` and `>` to save OpenSCAD output, e.g. to [file.scad](file.scad).
 ```
 $ ./braille -scad "hoi goran" > file.scad
