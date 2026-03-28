@@ -97,7 +97,7 @@ Expected output.
  #    1    2    3    4    5    6    7    8    9    0   
 ```
 
-## SVG
+## SVG Output
 Use `-svg` and `>` to save SVG output, e.g. to [file.svg](file.svg).
 ```
 $ ./braille -svg "hoi goran" > file.svg
