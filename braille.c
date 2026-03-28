@@ -190,7 +190,7 @@ void append_part(struct part *new) {
 }
 
 void append_str(char *text) {
-    printf("append_str, text = %s\n", text);
+    //printf("append_str, text = %s\n", text);
     struct tuple *t = find_tuple(text);
     assert(t != NULL);
     struct part *p = create_part(t);
