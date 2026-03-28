@@ -1,13 +1,10 @@
-# Proof of Concept
+# Braille - Proof of Concept
 
-> Work in progress.
+Simplified building blocks of the code.
 
-## Learn
-Check these simplified building blocks of the code.
-
-- [pocs/lookup.c](pocs/lookup.c) uses a big if statement to translate input.
+## Lookup
+- [lookup.c](lookup.c) uses a big if statement to translate input.
     ```
-    $ cd pocs
     $ gcc -o lookup lookup.c
     $ ./lookup
     ```
@@ -15,9 +12,10 @@ Check these simplified building blocks of the code.
     ```
     ⠓⠕⠊ ⠛⠕⠗⠁⠝
     ```
-- [pocs/binary.c](pocs/binary.c) prints the binary input, e.g. `0x00000001`.
+
+## Binary
+- [binary.c](binary.c) prints the binary input, e.g. `0x00000001`.
     ```
-    $ cd pocs
     $ gcc -o binary binary.c
     $ ./binary
     ```
@@ -33,9 +31,22 @@ Check these simplified building blocks of the code.
     0b10000000
     ```
 
-- [pocs/parser.c](pocs/parser.c) splits the input into "full text" groups.
+## Unicode
+- [unicode.c](unicode.c) prints the hex values of a Unicode character.
+
     ```
-    $ cd pocs
+    $ gcc -o unicode unicode.c
+    $ ./unicode ä
+    ```
+    ```
+    0xc3
+    0xa4
+    ä
+    ```
+
+## Parser
+- [parser.c](parser.c) splits the input into "full text" groups.
+    ```
     $ gcc -o parser parser.c
     $ ./parser
     ```
