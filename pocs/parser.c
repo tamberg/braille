@@ -16,7 +16,7 @@
 
 void append_ch(char ch) {
     if (ch != '\0') {
-        printf("[%c]", ch);
+        printf("%c", ch);
     }
 }
 
