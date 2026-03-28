@@ -1,6 +1,11 @@
 # [Braille](../README.md) - Proof of Concept
 Simplified building blocks of the code.
 
+- [Lookup](#lookup)
+- [Binary](#binary)
+- [Unicode](#unicode)
+- [Parser](#parser)
+
 ## Lookup
 - [lookup.c](lookup.c) uses a big if statement to translate input.
     ```
