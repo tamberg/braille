@@ -33,6 +33,13 @@ Expected output.
 # Features
 In general, `braille` translates to Swiss Braille Volltext.
 
+- [Letters](#letters)
+- [Umlauts](#unlauts)
+- [Volltext](#volltext)
+- [Numbers](numbers)
+- [SVG Output](#svg-output)
+- [OpenSCAD](#openscad)
+
 ## Letters
 Use lower case letters `a` to `z`.
 ```
