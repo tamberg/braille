@@ -1,4 +1,4 @@
-# [Braille](../../../README.md) - Proof of Concept
+# [Braille](../README.md) - Proof of Concept
 Simplified building blocks of the code.
 
 ## Lookup
