@@ -30,28 +30,29 @@ Expected output.
  h     o     i           g     o     r     a     n
 ```
 
-Including Unicode `ä`, `ö`, `ü`, `ß`.
+## Unicode
+Use Unicode for `ä`, `ö`, `ü`, `ß`.
 ```
-$ ./braille "ääuaucheieuieöüschßst"
+$  ./braille "äöüß"
 ```
 
 Expected output.
 ```
-[ä][äu][au][ch][ei][eu][ie][ö][ü][sch][ß][st]
+⠜⠪⠳⠮
 
-⠜⠌⠡⠹⠩⠣⠍⠪⠳⠱⠮⠾
-
-○ ●  ○ ●  ● ○  ● ●  ● ●  ● ○  ○ ●  ○ ●  ● ○  ● ○  ○ ●  ○ ●  
-○ ●  ○ ○  ○ ○  ○ ●  ○ ○  ● ○  ○ ○  ● ○  ● ●  ○ ●  ● ○  ● ●  
-● ○  ● ○  ○ ●  ○ ●  ○ ●  ○ ●  ● ●  ○ ●  ○ ●  ○ ●  ● ●  ● ●  
- ä   äu   au   ch   ei   eu   ie    ö    ü   sch   ß   st   
+○ ●  ○ ●  ● ○  ○ ●  
+○ ●  ● ○  ● ●  ● ○  
+● ○  ○ ●  ○ ●  ● ●  
+ ä    ö    ü    ß
 ```
 
+## SVG
 Use `-svg` and `>` to save SVG output, e.g. to [file.svg](file.svg).
 ```
 $ ./braille -svg "hoi goran" > file.svg
 ```
 
+## OpenSCAD
 Use  `-scad` and `>` to save OpenSCAD output, e.g. to [file.scad](file.scad).
 ```
 $ ./braille -scad "hoi goran" > file.scad
