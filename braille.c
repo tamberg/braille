@@ -7,9 +7,11 @@
 #define READ_A 1
 #define READ_C 2
 #define READ_E 3
-#define READ_S 4
-#define READ_SC 5
-#define READ_0xC3 6
+#define READ_I 4
+#define READ_S 5
+#define READ_SC 6
+#define READ_0xC3 7
+#define READ_0xC3A4 8
 
 // https://en.wikipedia.org/wiki/Braille_Patterns
 
@@ -139,12 +141,15 @@ struct tuple tuples[] = {
     {"au", "⠡", {"● ○", "○ ○", "○ ●"}, 0b00100001},
     {"eu", "⠣", {"● ○", "● ○", "○ ●"}, 0b00100011},
     {"ei", "⠩", {"● ●", "○ ○", "○ ●"}, 0b00101001},
+    {"ie", "⠍", {"○ ●", "○ ○", "● ●"}, 0b00101100},
     {"ch", "⠹", {"● ●", "○ ●", "○ ●"}, 0b00111001},
     {"sch", "⠱", {"● ○", "○ ●", "○ ●"}, 0b00110001},
     {"st", "⠾", {"○ ●", "● ●", "● ●"}, 0b00111110},
-    {"ä", "⠜", {"○ ●", "○ ●", "● ○"}, 0b001110},
-    {"ö", "⠪", {"○ ●", "● ○", "○ ●"}, 0b010101},
-    {"ü", "⠳", {"● ●", "○ ○", "● ●"}, 0b110011}
+    {"ä", "⠜", {"○ ●", "○ ●", "● ○"}, 0b00011100},
+    {"ö", "⠪", {"○ ●", "● ○", "○ ●"}, 0b00101010},
+    {"ü", "⠳", {"● ○", "● ●", "○ ●"}, 0b00110011},
+    {"äu", "⠌", {"○ ●", "○ ○", "● ○"}, 0b00001100},
+    {"ß", "⠮", {"○ ●", "● ○", "● ●"}, 0b00101110}
 };
 
 int tuples_len = sizeof(tuples) / sizeof(tuples[0]);
@@ -294,7 +299,7 @@ void print_newlines(void) {
     printf("\n\n");
 }
 
-// au, eu, ei, ch, sch, st
+// au, eu, ei, ie, ch, sch, st, äu
 
 void parse_text(char *s) { // TODO: vs. Unicode
     int i = 0;
@@ -308,6 +313,8 @@ void parse_text(char *s) { // TODO: vs. Unicode
                 state = READ_C;
             } else if (s[i] == 'e') {
                 state = READ_E;
+            } else if (s[i] == 'i') {
+                state = READ_I;
             } else if (s[i] == 's') {
                 state = READ_S;
             } else if (((unsigned char) s[i]) == 0xc3) { // ä, ö, ü, ...
@@ -328,9 +335,15 @@ void parse_text(char *s) { // TODO: vs. Unicode
             } else if (s[i] == 'e') {
                 append_ch('a');
                 state = READ_E;
+            } else if (s[i] == 'i') {
+                append_ch('a');
+                state = READ_I;
             } else if (s[i] == 's') {
                 append_ch('a');
                 state = READ_S;
+            } else if (((unsigned char) s[i]) == 0xc3) {
+                append_ch('a');
+                state = READ_0xC3;
             } else {
                 append_ch('a');
                 append_ch(s[i]);
@@ -349,9 +362,15 @@ void parse_text(char *s) { // TODO: vs. Unicode
             } else if (s[i] == 'e') {
                 append_ch('c');
                 state = READ_E;
+            } else if (s[i] == 'i') {
+                append_ch('c');
+                state = READ_I;
             } else if (s[i] == 's') {
                 append_ch('c');
                 state = READ_S;
+            } else if (((unsigned char) s[i]) == 0xc3) {
+                append_ch('c');
+                state = READ_0xC3;
             } else {
                 append_ch('c');
                 append_ch(s[i]);
@@ -373,11 +392,41 @@ void parse_text(char *s) { // TODO: vs. Unicode
             } else if (s[i] == 'e') {
                 append_ch('e');
                 state = READ_E;
+            } else if (s[i] == 'i') {
+                append_ch('e');
+                state = READ_I;
             } else if (s[i] == 's') {
                 append_ch('e');
                 state = READ_S;
+            } else if (((unsigned char) s[i]) == 0xc3) {
+                append_ch('e');
+                state = READ_0xC3;
             } else {
                 append_ch('e');
+                append_ch(s[i]);
+                state = INIT;
+            }
+        } else if (state == READ_I) {
+            if (s[i] == 'e') {
+                append_str("ie");
+                state = INIT;
+            } else if (s[i] == 'a') {
+                append_ch('i');
+                state = READ_A;
+            } else if (s[i] == 'c') {
+                append_ch('i');
+                state = READ_C;
+            } else if (s[i] == 'i') {
+                append_ch('i');
+                state = READ_I;
+            } else if (s[i] == 's') {
+                append_ch('i');
+                state = READ_S;
+            } else if (((unsigned char) s[i]) == 0xc3) {
+                append_ch('i');
+                state = READ_0xC3;
+            } else {
+                append_ch('i');
                 append_ch(s[i]);
                 state = INIT;
             }
@@ -393,9 +442,15 @@ void parse_text(char *s) { // TODO: vs. Unicode
             } else if (s[i] == 'e') {
                 append_ch('s');
                 state = READ_E;
+            } else if (s[i] == 'i') {
+                append_ch('s');
+                state = READ_I;
             } else if (s[i] == 's') {
                 append_ch('s');
                 state = READ_S;
+            } else if (((unsigned char) s[i]) == 0xc3) {
+                append_ch('s');
+                state = READ_0xC3;
             } else {
                 append_ch('s');
                 append_ch(s[i]);
@@ -409,10 +464,22 @@ void parse_text(char *s) { // TODO: vs. Unicode
                 append_ch('s');
                 append_ch('c');
                 state = READ_A;
+            } else if (s[i] == 'e') {
+                append_ch('s');
+                append_ch('c');
+                state = READ_E;
+            } else if (s[i] == 'i') {
+                append_ch('s');
+                append_ch('c');
+                state = READ_I;
             } else if (s[i] == 's') {
                 append_ch('s');
                 append_ch('c');
                 state = READ_S;
+            } else if (((unsigned char) s[i]) == 0xc3) {
+                append_ch('s');
+                append_ch('c');
+                state = READ_0xC3;
             } else {
                 append_ch('s');
                 append_ch('c');
@@ -421,17 +488,43 @@ void parse_text(char *s) { // TODO: vs. Unicode
             }
         } else if (state == READ_0xC3) {
             if (((unsigned char) s[i]) == 0xa4) { // ä
-                append_str("ä");
-                state = INIT;
+                state = READ_0xC3A4;
             } else if (((unsigned char) s[i]) == 0xb6) { // ö
                 append_str("ö");
                 state = INIT;
             } else if (((unsigned char) s[i]) == 0xbc) { // ü
                 append_str("ü");
                 state = INIT;
+            } else if (((unsigned char) s[i]) == 0x9f) { // ß
+                append_str("ß");
+                state = INIT;
             } else {
                 printf("%#02x\n", 0x000000ff & s[i]);
                 assert(0); // not yet impl
+            }
+        } else if (state == READ_0xC3A4) { // ä
+            if (s[i] == 'u') {
+                append_str("äu");
+                state = INIT;
+            } else if (s[i] == 'a') {
+                append_str("ä");
+                state = READ_A;
+            } else if (s[i] == 'c') {
+                append_str("ä");
+                state = READ_C;
+            } else if (s[i] == 'e') {
+                append_str("ä");
+                state = READ_E;
+            } else if (s[i] == 's') {
+                append_str("ä");
+                state = READ_S;
+            } else if (((unsigned char) s[i]) == 0xc3) {
+                append_str("ä");
+                state = READ_0xC3;
+            } else {
+                append_str("ä");
+                append_ch(s[i]);
+                state = INIT;
             }
         }
         done = s[i] == '\0';
