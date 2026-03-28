@@ -41,11 +41,16 @@ Check these simplified building blocks of the code.
     ```
 
     ```
+    abc
     hello
     [sch]ul[st]ress
     [au]s[sch]uss
     spas[sch]roni[st]
+    spaß[ch]roni[st]
     lande[sch]ronik
     [st]r[eu][sch][au]fel
-    [sch]m[au][ch]spur    
+    [sch]m[au][ch]spur
+    äußer[st]
+    #1 #2 #3
+    #1825
     ```
