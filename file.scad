@@ -12,7 +12,7 @@ module pattern(d1, d2, d3, d4, d5, d6) {
     if (d6) { translate([2.5, 0.0, 0]) cylinder(h_dot, r_dot, r_dot); }
 }
 
-cube([58.5, 13.0, h_base]);
+cube([58, 13, h_base]);
 translate([4, 4, h_base]) pattern(1, 1, 0, 0, 1, 0);
 translate([10, 4, h_base]) pattern(1, 0, 1, 0, 1, 0);
 translate([16, 4, h_base]) pattern(0, 1, 0, 1, 0, 0);
