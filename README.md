@@ -31,7 +31,7 @@ Expected output.
 ```
 
 # Features
-In general, `braille` translates to Swiss Braille.
+In general, `braille` translates to Swiss Braille Volltext.
 
 ## Letters
 Use lower case letters `a` to `z`.
