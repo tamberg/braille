@@ -57,12 +57,12 @@ $ ./braille "äuaucheieuieschst"
 
 Expected output.
 ```
-⠡⠹⠩⠣⠍⠱⠾
+⠌⠡⠹⠩⠣⠍⠱⠾
 
-● ○  ● ●  ● ●  ● ○  ○ ●  ● ○  ○ ●  
-○ ○  ○ ●  ○ ○  ● ○  ○ ○  ○ ●  ● ●  
-○ ●  ○ ●  ○ ●  ○ ●  ● ●  ○ ●  ● ●  
-au   ch   ei   eu   ie   sch  st   
+○ ●  ● ○  ● ●  ● ●  ● ○  ○ ●  ● ○  ○ ●  
+○ ○  ○ ○  ○ ●  ○ ○  ● ○  ○ ○  ○ ●  ● ●  
+● ○  ○ ●  ○ ●  ○ ●  ○ ●  ● ●  ○ ●  ● ●  
+äu   au   ch   ei   eu   ie   sch  st
 ```
 
 ## Numbers
