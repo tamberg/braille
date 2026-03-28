@@ -8,6 +8,8 @@
 #define READ_S 4
 #define READ_SC 5
 #define READ_0xC3 6
+#define READ_0xC3A4 7
+#define READ_DIGIT 8
 
 // au, eu, ei, ch, sch, st
 
@@ -27,6 +29,9 @@ void print_parsed(char *s) {
                 state = READ_S;
             } else if (((unsigned char) s[i]) == 0xc3) { // ä, ö, ü, ...
                 state = READ_0xC3;
+            } else if ('0' <= s[i] && s[i] <= '9') { // 0 - 9
+                printf("#");
+                state = READ_DIGIT;
             } else {
                 printf("%c", s[i]);
             }
@@ -143,6 +148,24 @@ void print_parsed(char *s) {
                 printf("%#02x\n", 0x000000ff & s[i]);
                 assert(0); // not yet impl
             }
+        } else if (state == READ_DIGIT) {
+            assert(i > 0);
+            if ('0' <= s[i] && s[i] <= '9') { // 0 - 9
+                printf("%c", s[i - 1]);
+                state = READ_DIGIT;
+            } else if (s[i] == 'a') {
+                printf("%c", s[i - 1]);
+                state = READ_A;
+            } else if (s[i] == 'e') {
+                printf("%c", s[i - 1]);
+                state = READ_E;
+            } else if (s[i] == 's') {
+                printf("%c", s[i - 1]);
+                state = READ_S;
+            } else {
+                printf("%c%c", s[i - 1], s[i]);
+                state = INIT;
+            }
         }
         done = s[i] == '\0';
         i++;
@@ -160,5 +183,7 @@ int main(void) {
     print_parsed("streuschaufel\n");
     print_parsed("schmauchspur\n");
     print_parsed("äußerst\n");
+    print_parsed("1 2 3\n");
+    print_parsed("1825\n");
     return 0;
 }
