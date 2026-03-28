@@ -34,7 +34,7 @@ Expected output.
 In general, `braille` translates to Swiss Braille Volltext.
 
 - [Letters](#letters)
-- [Umlauts](#unlauts)
+- [Umlauts](#umlauts)
 - [Volltext](#volltext)
 - [Numbers](numbers)
 - [SVG Output](#svg-output)
