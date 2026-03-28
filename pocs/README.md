@@ -3,9 +3,8 @@
 Simplified building blocks of the code.
 
 ## Lookup
-- [pocs/lookup.c](pocs/lookup.c) uses a big if statement to translate input.
+- [lookup.c](lookup.c) uses a big if statement to translate input.
     ```
-    $ cd pocs
     $ gcc -o lookup lookup.c
     $ ./lookup
     ```
@@ -15,9 +14,8 @@ Simplified building blocks of the code.
     ```
 
 ## Binary
-- [pocs/binary.c](pocs/binary.c) prints the binary input, e.g. `0x00000001`.
+- [binary.c](binary.c) prints the binary input, e.g. `0x00000001`.
     ```
-    $ cd pocs
     $ gcc -o binary binary.c
     $ ./binary
     ```
@@ -35,9 +33,8 @@ Simplified building blocks of the code.
 
 
 ## Parser
-- [pocs/parser.c](pocs/parser.c) splits the input into "full text" groups.
+- [parser.c](parser.c) splits the input into "full text" groups.
     ```
-    $ cd pocs
     $ gcc -o parser parser.c
     $ ./parser
     ```
