@@ -36,7 +36,7 @@ In general, `braille` translates to Swiss Braille Volltext.
 - [Letters](#letters)
 - [Umlauts](#umlauts)
 - [Volltext](#volltext)
-- [Numbers](numbers)
+- [Numbers](#numbers)
 - [SVG Output](#svg-output)
 - [OpenSCAD](#openscad)
 
