@@ -31,6 +31,12 @@ Simplified building blocks of the code.
     0b10000000
     ```
 
+## Unicode
+- [unicode.c](unicode.c) prints the hex value of a Unicode character.
+    ```
+    $ gcc -o unicode unicode.c
+    $ ./unicode ä
+    ```
 
 ## Parser
 - [parser.c](parser.c) splits the input into "full text" groups.
