@@ -1,5 +1,4 @@
-# Braille - Proof of Concept
-
+# [Braille](..) - Proof of Concept
 Simplified building blocks of the code.
 
 ## Lookup
