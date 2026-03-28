@@ -12,6 +12,7 @@
 #define READ_SC 6
 #define READ_0xC3 7
 #define READ_0xC3A4 8
+#define READ_DIGIT 9
 
 // https://en.wikipedia.org/wiki/Braille_Patterns
 
@@ -149,7 +150,18 @@ struct tuple tuples[] = {
     {"ö", "⠪", {"○ ●", "● ○", "○ ●"}, 0b00101010},
     {"ü", "⠳", {"● ○", "● ●", "○ ●"}, 0b00110011},
     {"äu", "⠌", {"○ ●", "○ ○", "● ○"}, 0b00001100},
-    {"ß", "⠮", {"○ ●", "● ○", "● ●"}, 0b00101110}
+    {"ß", "⠮", {"○ ●", "● ○", "● ●"}, 0b00101110},
+    {"#", "⠼", {"○ ●", "○ ●", "● ●"}, 0b00111100},
+    {"1", "⠁", {"● ○", "○ ○", "○ ○"}, 0b00000001},
+    {"2", "⠃", {"● ○", "● ○", "○ ○"}, 0b00000011},
+    {"3", "⠉", {"● ●", "○ ○", "○ ○"}, 0b00001001},
+    {"4", "⠙", {"● ●", "○ ●", "○ ○"}, 0b00011001},
+    {"5", "⠑", {"● ○", "○ ●", "○ ○"}, 0b00010001},
+    {"6", "⠋", {"● ●", "● ○", "○ ○"}, 0b00001011},
+    {"7", "⠛", {"● ●", "● ●", "○ ○"}, 0b00011011},
+    {"8", "⠓", {"● ○", "● ●", "○ ○"}, 0b00010011},
+    {"9", "⠊", {"○ ●", "● ○", "○ ○"}, 0b00001010},
+    {"0", "⠚", {"○ ●", "● ●", "○ ○"}, 0b00011010}
 };
 
 int tuples_len = sizeof(tuples) / sizeof(tuples[0]);
@@ -259,12 +271,13 @@ void print_part_braille_l2(struct part *p, int x) {
 }
 
 void print_part_braille_l3(struct part *p, int x) {
+    // TODO: Unicode support
     char *s = p->tuple->ascii;
     int len;
     if ((unsigned char) s[0] == 0xc3) {
-        if (s[2] == '\0') {
+        if (s[2] == '\0') { // e.g. "ä"
             len = 1;
-        } else {
+        } else { // e.g. "äu"
             len = 2;
         }
     } else {
@@ -305,7 +318,7 @@ void print_newlines(void) {
 
 // au, eu, ei, ie, ch, sch, st, äu
 
-void parse_text(char *s) { // TODO: vs. Unicode
+void parse_text(char *s) {
     int i = 0;
     int done = 0;
     int state = INIT;
@@ -321,8 +334,11 @@ void parse_text(char *s) { // TODO: vs. Unicode
                 state = READ_I;
             } else if (s[i] == 's') {
                 state = READ_S;
-            } else if (((unsigned char) s[i]) == 0xc3) { // ä, ö, ü, ...
+            } else if (((unsigned char) s[i]) == 0xc3) { // ä, ö, ü
                 state = READ_0xC3;
+            } else if ('0' <= s[i] && s[i] <= '9') { // 0 - 9
+                append_ch('#');
+                state = READ_DIGIT;
             } else {
                 append_ch(s[i]);       
             }
@@ -527,6 +543,25 @@ void parse_text(char *s) { // TODO: vs. Unicode
                 state = READ_0xC3;
             } else {
                 append_str("ä");
+                append_ch(s[i]);
+                state = INIT;
+            }
+        } else if (state == READ_DIGIT) {
+            assert(i > 0);
+            if ('0' <= s[i] && s[i] <= '9') { // 0 - 9
+                append_ch(s[i - 1]);
+                state = READ_DIGIT;
+            } else if (s[i] == 'a') {
+                append_ch(s[i - 1]);
+                state = READ_A;
+            } else if (s[i] == 'e') {
+                append_ch(s[i - 1]);
+                state = READ_E;
+            } else if (s[i] == 's') {
+                append_ch(s[i - 1]);
+                state = READ_S;
+            } else {
+                append_ch(s[i - 1]);
                 append_ch(s[i]);
                 state = INIT;
             }
