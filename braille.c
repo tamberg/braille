@@ -9,6 +9,7 @@
 #define READ_E 3
 #define READ_S 4
 #define READ_SC 5
+#define READ_0xC3 6
 
 // https://en.wikipedia.org/wiki/Braille_Patterns
 
@@ -140,7 +141,10 @@ struct tuple tuples[] = {
     {"ei", "⠩", {"● ●", "○ ○", "○ ●"}, 0b00101001},
     {"ch", "⠹", {"● ●", "○ ●", "○ ●"}, 0b00111001},
     {"sch", "⠱", {"● ○", "○ ●", "○ ●"}, 0b00110001},
-    {"st", "⠾", {"○ ●", "● ●", "● ●"}, 0b00111110}
+    {"st", "⠾", {"○ ●", "● ●", "● ●"}, 0b00111110},
+    {"ä", "⠜", {"○ ●", "○ ●", "● ○"}, 0b001110},
+    {"ö", "⠪", {"○ ●", "● ○", "○ ●"}, 0b010101},
+    {"ü", "⠳", {"● ●", "○ ○", "● ●"}, 0b110011}
 };
 
 int tuples_len = sizeof(tuples) / sizeof(tuples[0]);
@@ -186,7 +190,7 @@ void append_part(struct part *new) {
 }
 
 void append_str(char *text) {
-    //printf("append_str, text = %s\n", text);
+    printf("append_str, text = %s\n", text);
     struct tuple *t = find_tuple(text);
     assert(t != NULL);
     struct part *p = create_part(t);
@@ -251,7 +255,12 @@ void print_part_braille_l2(struct part *p, int x) {
 
 void print_part_braille_l3(struct part *p, int x) {
     char *s = p->tuple->ascii;
-    int len = strlen(s);
+    int len;
+    if ((unsigned char) s[0] == 0xc3) {
+        len = 1;
+    } else {
+        len = strlen(s);
+    }
     if (len == 1) {
         printf(" %s ", s);
     } else if (len == 2) {
@@ -301,6 +310,8 @@ void parse_text(char *s) { // TODO: vs. Unicode
                 state = READ_E;
             } else if (s[i] == 's') {
                 state = READ_S;
+            } else if (((unsigned char) s[i]) == 0xc3) { // ä, ö, ü, ...
+                state = READ_0xC3;
             } else {
                 append_ch(s[i]);       
             }
@@ -407,6 +418,20 @@ void parse_text(char *s) { // TODO: vs. Unicode
                 append_ch('c');
                 append_ch(s[i]);
                 state = INIT;
+            }
+        } else if (state == READ_0xC3) {
+            if (((unsigned char) s[i]) == 0xa4) { // ä
+                append_str("ä");
+                state = INIT;
+            } else if (((unsigned char) s[i]) == 0xb6) { // ö
+                append_str("ö");
+                state = INIT;
+            } else if (((unsigned char) s[i]) == 0xbc) { // ü
+                append_str("ü");
+                state = INIT;
+            } else {
+                printf("%#02x\n", 0x000000ff & s[i]);
+                assert(0); // not yet impl
             }
         }
         done = s[i] == '\0';
