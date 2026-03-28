@@ -136,6 +136,9 @@ void print_parsed(char *s) {
             } else if (((unsigned char) s[i]) == 0xbc) { // ü
                 printf("ü");
                 state = INIT;
+            } else if (((unsigned char) s[i]) == 0x9f) { // ß
+                printf("ß");
+                state = INIT;
             } else {
                 printf("%#02x\n", 0x000000ff & s[i]);
                 assert(0); // not yet impl
@@ -152,9 +155,10 @@ int main(void) {
     print_parsed("schulstress\n");
     print_parsed("ausschuss\n");
     print_parsed("spasschronist\n");
+    print_parsed("spaßchronist\n");
     print_parsed("landeschronik\n");
     print_parsed("streuschaufel\n");
     print_parsed("schmauchspur\n");
-    print_parsed("äüö\n");
+    print_parsed("äußerst\n");
     return 0;
 }
