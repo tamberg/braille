@@ -116,5 +116,7 @@ Use  `-scad` and `>` to save OpenSCAD output, e.g. to [file.scad](file.scad).
 $ ./braille -scad "hoi goran" > file.scad
 ```
 
+Then, use OpenSCAD to save STL output, e.g. to [file.stl](file.stl).
+
 ## Learn
 Check the [Proof of Concept](pocs/README.md) examples.
