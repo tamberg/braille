@@ -50,6 +50,7 @@ Expected output.
 ```
 
 ## Volltext
+The letters `au`, `ch`, `ei`, `eu`, `ie`, `sch` and `st` are grouped.
 ```
 $ ./braille "aucheieuieschst" 
 ```
