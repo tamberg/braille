@@ -7,18 +7,28 @@
 #define READ_A 1
 #define READ_C 2
 #define READ_E 3
-#define READ_S 4
-#define READ_SC 5
-#define READ_0xC3 6
-#define READ_0xC3A4 7
-#define READ_DIGIT 8
+#define READ_I 4
+#define READ_S 5
+#define READ_SC 6
+#define READ_0xC3 7
+#define READ_0xC3A4 8
+#define READ_DIGIT 9
 
-// au, eu, ei, ch, sch, st
+void append_ch(char ch) {
+    if (ch != '\0') {
+        printf("[%c]", ch);
+    }
+}
 
-void print_parsed(char *s) {
+void append_str(char *s) {
+    printf("[%s]", s);
+}
+
+// groups äu, au, ch, eu, ei, sch, st
+void parse_text(char *s) {
     int i = 0;
     int done = 0;
-    int state = 0;
+    int state = INIT;
     while (!done) {
         if (state == INIT) {
             if (s[i] == 'a') {
@@ -27,145 +37,239 @@ void print_parsed(char *s) {
                 state = READ_C;
             } else if (s[i] == 'e') {
                 state = READ_E;
+            } else if (s[i] == 'i') {
+                state = READ_I;
             } else if (s[i] == 's') {
                 state = READ_S;
-            } else if (((unsigned char) s[i]) == 0xc3) { // ä, ö, ü, ...
+            } else if (((unsigned char) s[i]) == 0xc3) { // ä, ö, ü
                 state = READ_0xC3;
             } else if ('0' <= s[i] && s[i] <= '9') { // 0 - 9
-                printf("#");
+                append_ch('#');
                 state = READ_DIGIT;
             } else {
-                printf("%c", s[i]);
+                append_ch(s[i]);       
             }
         } else if (state == READ_A) {
             if (s[i] == 'u') {
-                printf("[au]");
+                append_str("au");
                 state = INIT;
             } else if (s[i] == 'a') {
-                printf("a");
+                append_ch('a');
                 state = READ_A;
             } else if (s[i] == 'c') {
-                printf("a");
+                append_ch('a');
                 state = READ_C;
             } else if (s[i] == 'e') {
-                printf("a");
+                append_ch('a');
                 state = READ_E;
+            } else if (s[i] == 'i') {
+                append_ch('a');
+                state = READ_I;
             } else if (s[i] == 's') {
-                printf("a");
+                append_ch('a');
                 state = READ_S;
+            } else if (((unsigned char) s[i]) == 0xc3) {
+                append_ch('a');
+                state = READ_0xC3;
             } else {
-                printf("a%c", s[i]);
+                append_ch('a');
+                append_ch(s[i]);
                 state = INIT;
             }
         } else if (state == READ_C) {
             if (s[i] == 'h') {
-                printf("[ch]");
+                append_str("ch");
                 state = INIT;
             } else if (s[i] == 'a') {
-                printf("c");
+                append_ch('c');
                 state = READ_A;
             } else if (s[i] == 'c') {
-                printf("c");
+                append_ch('c');
                 state = READ_C;
             } else if (s[i] == 'e') {
-                printf("c");
+                append_ch('c');
                 state = READ_E;
+            } else if (s[i] == 'i') {
+                append_ch('c');
+                state = READ_I;
             } else if (s[i] == 's') {
-                printf("c");
+                append_ch('c');
                 state = READ_S;
+            } else if (((unsigned char) s[i]) == 0xc3) {
+                append_ch('c');
+                state = READ_0xC3;
             } else {
-                printf("c%c", s[i]);
+                append_ch('c');
+                append_ch(s[i]);
                 state = INIT;
             }
         } else if (state == READ_E) {
             if (s[i] == 'i') {
-                printf("[ei]");
+                append_str("ei");
                 state = INIT;
             } else if (s[i] == 'u') {
-                printf("[eu]");
+                append_str("eu");
                 state = INIT;
             } else if (s[i] == 'a') {
-                printf("e");
+                append_ch('e');
                 state = READ_A;
             } else if (s[i] == 'c') {
-                printf("e");
+                append_ch('e');
                 state = READ_C;
             } else if (s[i] == 'e') {
-                printf("e");
+                append_ch('e');
                 state = READ_E;
+            } else if (s[i] == 'i') {
+                append_ch('e');
+                state = READ_I;
             } else if (s[i] == 's') {
-                printf("e");
+                append_ch('e');
                 state = READ_S;
+            } else if (((unsigned char) s[i]) == 0xc3) {
+                append_ch('e');
+                state = READ_0xC3;
             } else {
-                printf("e%c", s[i]);
+                append_ch('e');
+                append_ch(s[i]);
+                state = INIT;
+            }
+        } else if (state == READ_I) {
+            if (s[i] == 'e') {
+                append_str("ie");
+                state = INIT;
+            } else if (s[i] == 'a') {
+                append_ch('i');
+                state = READ_A;
+            } else if (s[i] == 'c') {
+                append_ch('i');
+                state = READ_C;
+            } else if (s[i] == 'i') {
+                append_ch('i');
+                state = READ_I;
+            } else if (s[i] == 's') {
+                append_ch('i');
+                state = READ_S;
+            } else if (((unsigned char) s[i]) == 0xc3) {
+                append_ch('i');
+                state = READ_0xC3;
+            } else {
+                append_ch('i');
+                append_ch(s[i]);
                 state = INIT;
             }
         } else if (state == READ_S) {
             if (s[i] == 'c') {
                 state = READ_SC;
             } else if (s[i] == 't') {
-                printf("[st]");
+                append_str("st");
                 state = INIT;
             } else if (s[i] == 'a') {
-                printf("s");
+                append_ch('s');
                 state = READ_A;
             } else if (s[i] == 'e') {
-                printf("s");
+                append_ch('s');
                 state = READ_E;
+            } else if (s[i] == 'i') {
+                append_ch('s');
+                state = READ_I;
             } else if (s[i] == 's') {
-                printf("s");
+                append_ch('s');
                 state = READ_S;
+            } else if (((unsigned char) s[i]) == 0xc3) {
+                append_ch('s');
+                state = READ_0xC3;
             } else {
-                printf("s%c", s[i]);
+                append_ch('s');
+                append_ch(s[i]);
                 state = INIT;
             }
         } else if (state == READ_SC) {
             if (s[i] == 'h') {
-                printf("[sch]");
+                append_str("sch");
                 state = INIT;
             } else if (s[i] == 'a') {
-                printf("sc");
+                append_ch('s');
+                append_ch('c');
                 state = READ_A;
+            } else if (s[i] == 'e') {
+                append_ch('s');
+                append_ch('c');
+                state = READ_E;
+            } else if (s[i] == 'i') {
+                append_ch('s');
+                append_ch('c');
+                state = READ_I;
             } else if (s[i] == 's') {
-                printf("sc");
+                append_ch('s');
+                append_ch('c');
                 state = READ_S;
+            } else if (((unsigned char) s[i]) == 0xc3) {
+                append_ch('s');
+                append_ch('c');
+                state = READ_0xC3;
             } else {
-                printf("sc%c", s[i]);
+                append_ch('s');
+                append_ch('c');
+                append_ch(s[i]);
                 state = INIT;
             }
         } else if (state == READ_0xC3) {
             if (((unsigned char) s[i]) == 0xa4) { // ä
-                printf("ä");
-                state = INIT;
+                state = READ_0xC3A4;
             } else if (((unsigned char) s[i]) == 0xb6) { // ö
-                printf("ö");
+                append_str("ö");
                 state = INIT;
             } else if (((unsigned char) s[i]) == 0xbc) { // ü
-                printf("ü");
+                append_str("ü");
                 state = INIT;
             } else if (((unsigned char) s[i]) == 0x9f) { // ß
-                printf("ß");
+                append_str("ß");
                 state = INIT;
             } else {
                 printf("%#02x\n", 0x000000ff & s[i]);
                 assert(0); // not yet impl
             }
+        } else if (state == READ_0xC3A4) { // ä
+            if (s[i] == 'u') {
+                append_str("äu");
+                state = INIT;
+            } else if (s[i] == 'a') {
+                append_str("ä");
+                state = READ_A;
+            } else if (s[i] == 'c') {
+                append_str("ä");
+                state = READ_C;
+            } else if (s[i] == 'e') {
+                append_str("ä");
+                state = READ_E;
+            } else if (s[i] == 's') {
+                append_str("ä");
+                state = READ_S;
+            } else if (((unsigned char) s[i]) == 0xc3) {
+                append_str("ä");
+                state = READ_0xC3;
+            } else {
+                append_str("ä");
+                append_ch(s[i]);
+                state = INIT;
+            }
         } else if (state == READ_DIGIT) {
             assert(i > 0);
             if ('0' <= s[i] && s[i] <= '9') { // 0 - 9
-                printf("%c", s[i - 1]);
+                append_ch(s[i - 1]);
                 state = READ_DIGIT;
             } else if (s[i] == 'a') {
-                printf("%c", s[i - 1]);
+                append_ch(s[i - 1]);
                 state = READ_A;
             } else if (s[i] == 'e') {
-                printf("%c", s[i - 1]);
+                append_ch(s[i - 1]);
                 state = READ_E;
             } else if (s[i] == 's') {
-                printf("%c", s[i - 1]);
+                append_ch(s[i - 1]);
                 state = READ_S;
             } else {
-                printf("%c%c", s[i - 1], s[i]);
+                append_ch(s[i - 1]);
+                append_ch(s[i]);
                 state = INIT;
             }
         }
@@ -174,18 +278,23 @@ void print_parsed(char *s) {
     }
 }
 
+void print_parsed(char *text) {
+    parse_text(text);
+    printf("\n");
+}
+
 int main(void) {
-    print_parsed("abc"); printf("\n");
-    print_parsed("hello\n");
-    print_parsed("schulstress\n");
-    print_parsed("ausschuss\n");
-    print_parsed("spasschronist\n");
-    print_parsed("spaßchronist\n");
-    print_parsed("landeschronik\n");
-    print_parsed("streuschaufel\n");
-    print_parsed("schmauchspur\n");
-    print_parsed("äußerst\n");
-    print_parsed("1 2 3\n");
-    print_parsed("1825\n");
+    print_parsed("abc");
+    print_parsed("hello");
+    print_parsed("schulstress");
+    print_parsed("ausschuss");
+    print_parsed("spasschronist");
+    print_parsed("spaßchronist");
+    print_parsed("landeschronik");
+    print_parsed("streuschaufel");
+    print_parsed("schmauchspur");
+    print_parsed("äußerst");
+    print_parsed("1 2 3");
+    print_parsed("1825");
     return 0;
 }
