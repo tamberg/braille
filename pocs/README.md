@@ -38,6 +38,11 @@ Simplified building blocks of the code.
     $ gcc -o unicode unicode.c
     $ ./unicode ä
     ```
+    ```
+    0xc3
+    0xa4
+    ä
+    ```
 
 ## Parser
 - [parser.c](parser.c) splits the input into "full text" groups.
