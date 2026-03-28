@@ -50,9 +50,9 @@ Expected output.
 ```
 
 ## Volltext
-The letters `au`, `ch`, `ei`, `eu`, `ie`, `sch` and `st` are grouped.
+The letters `äu`, `au`, `ch`, `ei`, `eu`, `ie`, `sch` and `st` are grouped.
 ```
-$ ./braille "aucheieuieschst" 
+$ ./braille "äuaucheieuieschst" 
 ```
 
 Expected output.
