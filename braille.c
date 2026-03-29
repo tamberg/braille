@@ -3,6 +3,8 @@
 #include <string.h>
 #include <assert.h>
 
+// parser states
+
 #define INIT 0
 #define READ_A 1
 #define READ_C 2
@@ -14,15 +16,7 @@
 #define READ_0xC3A4 8
 #define READ_DIGIT 9
 
-// https://en.wikipedia.org/wiki/Braille_Patterns
-
-// 1 4 
-// 2 5
-// 3 6
-// 7 8
-
-// 0b00000000
-//   87654321
+// SVG templates
 
 char *svg_start = 
     "<svg width=\"%.1fmm\" height=\"%.1fmm\" xmlns=\"http://www.w3.org/2000/svg\">\n";
@@ -57,6 +51,8 @@ void print_svg_group(unsigned char value, int x, int y) {
         x + 2.5, y + 5.0, dot6);
 }
 
+// SCAD templates
+
 char *scad_module =
     "$fn = 36;\n"
     "h_base = 2;\n"
@@ -88,17 +84,24 @@ void print_scad_object(unsigned char value, int x, int y) {
     printf(scad_object, x + 0.0, y + 0.0, dot1, dot2, dot3, dot4, dot5, dot6);
 }
 
+// lookup table of braille tuples
+
 struct tuple {
-    char *ascii;
+    char *ascii; // TODO: rename
     char *braille_s;
     char *braille_l[3];
     unsigned char braille_bits;
 };
 
-// https://en.wikipedia.org/wiki/Braille_ASCII for Unicode, and
-// https://www.sbs.ch/fileadmin/braille200/Braille-Alphabet.pdf
+// see https://en.wikipedia.org/wiki/Braille_ASCII & Braille_Patterns
+// and https://www.sbs.ch/fileadmin/braille200/Braille-Alphabet.pdf
 
-struct tuple tuples[] = {
+// 1 4 
+// 2 5
+// 3 6
+// 7 8
+
+struct tuple tuples[] = { // dot number 87654321
     {"a", "⠁", {"● ○", "○ ○", "○ ○"}, 0b00000001},
     {"b", "⠃", {"● ○", "● ○", "○ ○"}, 0b00000011},
     {"c", "⠉", {"● ●", "○ ○", "○ ○"}, 0b00001001},
@@ -178,6 +181,8 @@ struct tuple *find_tuple(char *ascii) {
     return &tuples[i];
 }
 
+// linked list of parsed parts
+
 struct part {
     struct tuple *tuple;
     struct part *next;
@@ -224,100 +229,10 @@ void append_ch(char ch) { // TODO: vs. Unicode
     }
 }
 
-int count_parts() {
-    int i = 0;
-    struct part *p = parts;
-    while (p != NULL) {
-        p = p->next;
-        i++;
-    }
-    return i;
-}
+// parser converting text to parts
 
-void iterate_parts(void(*f)(struct part *, int), void(*g)(void)) {
-    int i = 0;
-    struct part *p = parts;
-    while (p != NULL) {
-        if (f != NULL) { f(p, i); }
-        p = p->next;
-        i++;
-    }
-    if (g != NULL) { g(); }
-}
-
-void print_part_ascii(struct part *p, int x) {
-    char *s = p->tuple->ascii;
-    if (strlen(s) > 1) {
-        printf("[%s]", s);
-    } else {
-        printf("%s", s);
-    }
-}
-
-void print_part_braille_s(struct part *p, int x) {
-    printf("%s", p->tuple->braille_s);
-}
-
-void print_part_braille_l0(struct part *p, int x) {
-    printf("%s  ", p->tuple->braille_l[0]);
-}
-
-void print_part_braille_l1(struct part *p, int x) {
-    printf("%s  ", p->tuple->braille_l[1]);
-}
-
-void print_part_braille_l2(struct part *p, int x) {
-    printf("%s  ", p->tuple->braille_l[2]);
-}
-
-void print_part_braille_l3(struct part *p, int x) {
-    // TODO: Unicode support
-    char *s = p->tuple->ascii;
-    int len;
-    if ((unsigned char) s[0] == 0xc3) {
-        if (s[2] == '\0') { // e.g. "ä"
-            len = 1;
-        } else { // e.g. "äu"
-            len = 2;
-        }
-    } else {
-        len = strlen(s);
-    }
-    if (len == 1) {
-        printf(" %s ", s);
-    } else if (len == 2) {
-        printf("%s ", s);
-    } else if (len == 3) {
-        printf("%s", s);
-    }
-    printf("  ");
-}
-
-void print_part_braille_l(struct part *p, int x) {
-    printf("%s\n", p->tuple->braille_l[0]);
-    printf("%s\n", p->tuple->braille_l[1]);
-    printf("%s\n", p->tuple->braille_l[2]);
-    printf("\n");
-}
-
-void print_part_braille_svg_group(struct part *p, int i) {
-    print_svg_group(p->tuple->braille_bits, 4 + i * 6, 4);
-}
-
-void print_part_braille_scad_object(struct part *p, int i) {
-    print_scad_object(p->tuple->braille_bits, 4 + i * 6, 4);
-}
-
-void print_newline(void) {
-    printf("\n");
-}
-
-void print_newlines(void) {
-    printf("\n\n");
-}
-
-// au, eu, ei, ie, ch, sch, st, äu
-
+// handle multi-byte chars ä, ö, ü, ß and
+// group äu, au, ch, ei, eu, ie, sch, st
 void parse_text(char *s) {
     int i = 0;
     int done = 0;
@@ -571,6 +486,99 @@ void parse_text(char *s) {
     }
 }
 
+// part iterator functions
+
+int count_parts() {
+    int i = 0;
+    struct part *p = parts;
+    while (p != NULL) {
+        p = p->next;
+        i++;
+    }
+    return i;
+}
+
+void iterate_parts(void(*f)(struct part *, int), void(*g)(void)) {
+    int i = 0;
+    struct part *p = parts;
+    while (p != NULL) {
+        if (f != NULL) { f(p, i); }
+        p = p->next;
+        i++;
+    }
+    if (g != NULL) { g(); }
+}
+
+void print_part_ascii(struct part *p, int x) {
+    char *s = p->tuple->ascii;
+    if (strlen(s) > 1) {
+        printf("[%s]", s);
+    } else {
+        printf("%s", s);
+    }
+}
+
+void print_part_braille_s(struct part *p, int x) {
+    printf("%s", p->tuple->braille_s);
+}
+
+void print_part_braille_l0(struct part *p, int x) {
+    printf("%s  ", p->tuple->braille_l[0]);
+}
+
+void print_part_braille_l1(struct part *p, int x) {
+    printf("%s  ", p->tuple->braille_l[1]);
+}
+
+void print_part_braille_l2(struct part *p, int x) {
+    printf("%s  ", p->tuple->braille_l[2]);
+}
+
+void print_part_braille_l3(struct part *p, int x) {
+    char *s = p->tuple->ascii;
+    int len;
+    if ((unsigned char) s[0] == 0xc3) {
+        if (s[2] == '\0') { // e.g. "ä"
+            len = 1;
+        } else { // e.g. "äu"
+            len = 2;
+        }
+    } else {
+        len = strlen(s);
+    }
+    if (len == 1) {
+        printf(" %s ", s);
+    } else if (len == 2) {
+        printf("%s ", s);
+    } else if (len == 3) {
+        printf("%s", s);
+    }
+    printf("  ");
+}
+
+void print_part_braille_l(struct part *p, int x) {
+    printf("%s\n", p->tuple->braille_l[0]);
+    printf("%s\n", p->tuple->braille_l[1]);
+    printf("%s\n", p->tuple->braille_l[2]);
+    printf("\n");
+}
+
+void print_part_braille_svg_group(struct part *p, int i) {
+    print_svg_group(p->tuple->braille_bits, 4 + i * 6, 4);
+}
+
+void print_part_braille_scad_object(struct part *p, int i) {
+    print_scad_object(p->tuple->braille_bits, 4 + i * 6, 4);
+}
+
+void print_newline(void) {
+    printf("\n");
+}
+
+void print_newlines(void) {
+    printf("\n\n");
+}
+
 void print_braille_text(char *text) {
     parse_text(text);    
     iterate_parts(print_part_ascii, print_newlines);
@@ -599,6 +607,8 @@ void print_braille_scad(char *text) {
     iterate_parts(print_part_braille_scad_object, NULL);
     parts = NULL;
 }
+
+// main() function with options
 
 int main(int argc, char *argv[]) {
     if (argc == 2) {
