@@ -38,7 +38,7 @@ In general, `braille` translates to Swiss Braille Volltext.
 - [Volltext](#volltext)
 - [Numbers](#numbers)
 - [SVG Output](#svg-output)
-- [STL via OpenSCAD](#stl-via-openscad)
+- [STL via SCAD](#stl-via-scad)
 
 ## Letters
 Use lower case letters `a` to `z`.
@@ -111,7 +111,7 @@ $ ./braille -svg "hoi goran" > file.svg
 ```
 
 ## STL via OpenSCAD
-Use  `-scad` and `>` to save OpenSCAD output, e.g. to [file.scad](file.scad).
+Use  `-scad` and `>` to save SCAD output, e.g. to [file.scad](file.scad).
 ```
 $ ./braille -scad "hoi goran" > file.scad
 ```
