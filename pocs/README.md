@@ -49,7 +49,7 @@ Simplified building blocks of the code.
     ```
 
 ## Parser
-- [parser.c](parser.c) splits the input into "full text" groups.
+- [parser.c](parser.c) splits the input into full text (German: Volltext) groups.
     ```
     $ gcc -o parser parser.c
     $ ./parser
