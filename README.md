@@ -2,6 +2,8 @@
 
 > Work in progress.
 
+A simple text to braille converter.
+
 Initiated by Goran of [Apfelschule.ch](https://apfelschule.ch).
 
 Based on the [Braille alphabet](https://www.sbs.ch/fileadmin/braille200/Braille-Alphabet.pdf) as documented by [SBS.ch](https://www.sbs.ch/).
