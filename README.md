@@ -2,9 +2,11 @@
 
 > Work in progress.
 
+A simple text to braille converter.
+
 Initiated by Goran of [Apfelschule.ch](https://apfelschule.ch).
 
-Based on the [Braille alphabet](https://www.sbs.ch/fileadmin/braille200/Braille-Alphabet.pdf) as documented by [SBS.ch](https://www.sbs.ch/).
+Based on this [Braille alphabet](https://www.sbs.ch/fileadmin/braille200/Braille-Alphabet.pdf) by [SBS.ch](https://www.sbs.ch/).
 
 ## Build
 Build [braille.c](braille.c) on Linux or MacOS, in a terminal.
@@ -38,7 +40,7 @@ In general, `braille` translates to Swiss Braille Volltext.
 - [Volltext](#volltext)
 - [Numbers](#numbers)
 - [SVG Output](#svg-output)
-- [STL via OpenSCAD](#stl-via-openscad)
+- [STL via SCAD](#stl-via-scad)
 
 ## Letters
 Use lower case letters `a` to `z`.
@@ -110,8 +112,8 @@ Use `-svg` and `>` to save SVG output, e.g. to [file.svg](file.svg).
 $ ./braille -svg "hoi goran" > file.svg
 ```
 
-## STL via OpenSCAD
-Use  `-scad` and `>` to save OpenSCAD output, e.g. to [file.scad](file.scad).
+## STL via SCAD
+Use  `-scad` and `>` to save SCAD output, e.g. to [file.scad](file.scad).
 ```
 $ ./braille -scad "hoi goran" > file.scad
 ```
