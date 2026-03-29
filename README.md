@@ -6,7 +6,7 @@ A simple text to braille converter.
 
 Initiated by Goran of [Apfelschule.ch](https://apfelschule.ch).
 
-Based on the [Braille alphabet](https://www.sbs.ch/fileadmin/braille200/Braille-Alphabet.pdf) as documented by [SBS.ch](https://www.sbs.ch/).
+Based on this [Braille alphabet](https://www.sbs.ch/fileadmin/braille200/Braille-Alphabet.pdf) by [SBS.ch](https://www.sbs.ch/).
 
 ## Build
 Build [braille.c](braille.c) on Linux or MacOS, in a terminal.
