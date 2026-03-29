@@ -110,7 +110,7 @@ Use `-svg` and `>` to save SVG output, e.g. to [file.svg](file.svg).
 $ ./braille -svg "hoi goran" > file.svg
 ```
 
-## STL via OpenSCAD
+## STL via SCAD
 Use  `-scad` and `>` to save SCAD output, e.g. to [file.scad](file.scad).
 ```
 $ ./braille -scad "hoi goran" > file.scad
