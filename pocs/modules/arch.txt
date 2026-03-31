@@ -1,0 +1,10 @@
+
+     +--create->SCAD SVG ASCII
+    /              \  |  /   |
+   / +----use--->+  impl.   use
+  / /             \   v      |
+ Main-use->Parser  Iterators |
+  |          |      /        |
+  |        create use        |
+  v          v    v          v
+ argv        Parts--use->Tuples
