@@ -95,12 +95,15 @@ struct tuple {
 // see https://en.wikipedia.org/wiki/Braille_ASCII & Braille_Patterns
 // and https://www.sbs.ch/fileadmin/braille200/Braille-Alphabet.pdf
 
+// dot layout
+
 // 1 4 
 // 2 5
 // 3 6
 // 7 8
 
-struct tuple tuples[] = { // dot number 87654321
+struct tuple tuples[] = {
+    // dot no.   87654321
     {"a", "⠁", 0b00000001},
     {"b", "⠃", 0b00000011},
     {"c", "⠉", 0b00001001},
@@ -510,6 +513,7 @@ void iterate_parts(void(*f)(struct part *, int), void(*g)(void)) {
 }
 
 void print_part_ascii(struct part *p, int x) {
+    (void)(x); // unused
     char *s = p->tuple->ascii;
     if (strlen(s) > 1) {
         printf("[%s]", s);
@@ -519,10 +523,12 @@ void print_part_ascii(struct part *p, int x) {
 }
 
 void print_part_braille_s(struct part *p, int x) {
+    (void)(x); // unused
     printf("%s", p->tuple->braille_s);
 }
 
 void print_part_braille_l0(struct part *p, int x) {
+    (void)(x); // unused
     //printf("%s  ", p->tuple->braille_l[0]);
     int b = p->tuple->braille_bits;
     printf("%s ", b & 0b00000001 ? "●" : "○");
@@ -531,6 +537,7 @@ void print_part_braille_l0(struct part *p, int x) {
 }
 
 void print_part_braille_l1(struct part *p, int x) {
+    (void)(x); // unused
     //printf("%s  ", p->tuple->braille_l[1]);
     int b = p->tuple->braille_bits;
     printf("%s ", b & 0b00000010 ? "●" : "○");
@@ -539,6 +546,7 @@ void print_part_braille_l1(struct part *p, int x) {
 }
 
 void print_part_braille_l2(struct part *p, int x) {
+    (void)(x); // unused
     //printf("%s  ", p->tuple->braille_l[2]);
     int b = p->tuple->braille_bits;
     printf("%s ", b & 0b00000100 ? "●" : "○");
@@ -547,6 +555,7 @@ void print_part_braille_l2(struct part *p, int x) {
 }
 
 void print_part_braille_l3(struct part *p, int x) {
+    (void)(x); // unused
     char *s = p->tuple->ascii;
     int len;
     if ((unsigned char) s[0] == 0xc3) {
@@ -584,7 +593,7 @@ void print_newlines(void) {
     printf("\n\n");
 }
 
-void print_braille_text(char *text) {
+void print_braille_text() {
     iterate_parts(print_part_ascii, print_newlines);
     iterate_parts(print_part_braille_s, print_newlines);
     iterate_parts(print_part_braille_l0, print_newline);
@@ -593,14 +602,14 @@ void print_braille_text(char *text) {
     iterate_parts(print_part_braille_l3, print_newlines);
 }
 
-void print_braille_svg(char *text) {
+void print_braille_svg() {
     int n = count_parts() - 1;
     printf(svg_start, 4.0 + (n * 6.0) + 2.5 + 4.0, 4.0 + (0 * 10.0) + 5.0 + 4.0);
     iterate_parts(print_part_braille_svg_group, NULL);
     printf("%s", svg_end);
 }
 
-void print_braille_scad(char *text) {
+void print_braille_scad() {
     int n = count_parts() - 1;
     printf(scad_module, 4.0 + (n * 6.0) + 2.5 + 4.0, 4.0 + (0 * 10.0) + 5.0 + 4.0);
     iterate_parts(print_part_braille_scad_object, NULL);
@@ -612,15 +621,15 @@ int main(int argc, char *argv[]) {
     if (argc == 2) {
         char *text = argv[1];
         parse_text(text);    
-        print_braille_text(text);
+        print_braille_text();
     } else if (argc == 3) {
         char *opt = argv[1];
         char *text = argv[2];
         parse_text(text);
         if (strcmp(opt, "-svg") == 0) {
-            print_braille_svg(text);
+            print_braille_svg();
         } else if (strcmp(opt, "-scad") == 0) {
-            print_braille_scad(text);
+            print_braille_scad();
         }
     } else {
         printf("usage: %s [-svg|-scad] text\n", argv[0]);
