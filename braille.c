@@ -220,7 +220,7 @@ void append_str(char *text) {
     append_part(p);
 }
 
-void append_ch(char ch) { // TODO: vs. Unicode
+void append_ch(char ch) {
     if (ch != '\0') {
         char text[2];
         text[0] = ch;
@@ -580,7 +580,6 @@ void print_newlines(void) {
 }
 
 void print_braille_text(char *text) {
-    parse_text(text);    
     iterate_parts(print_part_ascii, print_newlines);
     iterate_parts(print_part_braille_s, print_newlines);
     iterate_parts(print_part_braille_l0, print_newline);
@@ -592,7 +591,6 @@ void print_braille_text(char *text) {
 }
 
 void print_braille_svg(char *text) {
-    parse_text(text);
     int n = count_parts() - 1;
     printf(svg_start, 4.0 + (n * 6.0) + 2.5 + 4.0, 4.0 + (0 * 10.0) + 5.0 + 4.0);
     iterate_parts(print_part_braille_svg_group, NULL);
@@ -601,7 +599,6 @@ void print_braille_svg(char *text) {
 }
 
 void print_braille_scad(char *text) {
-    parse_text(text);
     int n = count_parts() - 1;
     printf(scad_module, 4.0 + (n * 6.0) + 2.5 + 4.0, 4.0 + (0 * 10.0) + 5.0 + 4.0);
     iterate_parts(print_part_braille_scad_object, NULL);
@@ -613,10 +610,12 @@ void print_braille_scad(char *text) {
 int main(int argc, char *argv[]) {
     if (argc == 2) {
         char *text = argv[1];
+        parse_text(text);    
         print_braille_text(text);
     } else if (argc == 3) {
         char *opt = argv[1];
         char *text = argv[2];
+        parse_text(text);
         if (strcmp(opt, "-svg") == 0) {
             print_braille_svg(text);
         } else if (strcmp(opt, "-scad") == 0) {
