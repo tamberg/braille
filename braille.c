@@ -234,6 +234,7 @@ void append_ch(char ch) {
 // handle multi-byte chars ä, ö, ü, ß and
 // group äu, au, ch, ei, eu, ie, sch, st
 void parse_text(char *s) {
+    parts = NULL;
     int i = 0;
     int done = 0;
     int state = INIT;
@@ -587,7 +588,7 @@ void print_braille_text(char *text) {
     iterate_parts(print_part_braille_l2, print_newline);
     iterate_parts(print_part_braille_l3, print_newlines);
     //iterate_parts(print_part_braille_l, NULL);
-    parts = NULL;
+//    parts = NULL;
 }
 
 void print_braille_svg(char *text) {
@@ -595,14 +596,14 @@ void print_braille_svg(char *text) {
     printf(svg_start, 4.0 + (n * 6.0) + 2.5 + 4.0, 4.0 + (0 * 10.0) + 5.0 + 4.0);
     iterate_parts(print_part_braille_svg_group, NULL);
     printf("%s", svg_end);
-    parts = NULL;
+//    parts = NULL;
 }
 
 void print_braille_scad(char *text) {
     int n = count_parts() - 1;
     printf(scad_module, 4.0 + (n * 6.0) + 2.5 + 4.0, 4.0 + (0 * 10.0) + 5.0 + 4.0);
     iterate_parts(print_part_braille_scad_object, NULL);
-    parts = NULL;
+//    parts = NULL;
 }
 
 // main() function with options
