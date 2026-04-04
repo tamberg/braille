@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-std=c23 -pedantic -pedantic-errors -Werror -Wall -Wextra
+CFLAGS=-std=c2x -pedantic -pedantic-errors -Werror -Wall -Wextra
 
 all: braille
 
