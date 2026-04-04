@@ -12,7 +12,7 @@ Based on this [Braille alphabet](https://www.sbs.ch/fileadmin/braille200/Braille
 Build [braille.c](braille.c) on Linux or MacOS, in a terminal.
 
 ```
-$ gcc -o braille braille.c
+$ make
 ```
 
 ## Run
