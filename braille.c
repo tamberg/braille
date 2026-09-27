@@ -19,16 +19,17 @@
 // SVG templates
 
 char *svg_start = 
-    "<svg width=\"%.1fmm\" height=\"%.1fmm\" xmlns=\"http://www.w3.org/2000/svg\">\n";
+    "<svg width=\"%.1fmm\" height=\"%.1fmm\" xmlns=\"http://www.w3.org/2000/svg\">\n"
+    "    <rect width=\"%.1fmm\" height=\"%.1fmm\" x=\"0.0mm\" y=\"0.0mm\" rx=\"1.0mm\" ry=\"1.0mm\" fill=\"none\" stroke=\"black\" stroke-width=\"0.01mm\" />";
 
 char *svg_group =
     "  <g>\n"
-    "    <circle r=\"0.8mm\" cx=\"%.1fmm\" cy=\"%.1fmm\" fill=\"%s\" stroke=\"black\" stroke-width=\"0.01mm\" />\n"
-    "    <circle r=\"0.8mm\" cx=\"%.1fmm\" cy=\"%.1fmm\" fill=\"%s\" stroke=\"black\" stroke-width=\"0.01mm\" />\n"
-    "    <circle r=\"0.8mm\" cx=\"%.1fmm\" cy=\"%.1fmm\" fill=\"%s\" stroke=\"black\" stroke-width=\"0.01mm\" />\n"
-    "    <circle r=\"0.8mm\" cx=\"%.1fmm\" cy=\"%.1fmm\" fill=\"%s\" stroke=\"black\" stroke-width=\"0.01mm\" />\n"
-    "    <circle r=\"0.8mm\" cx=\"%.1fmm\" cy=\"%.1fmm\" fill=\"%s\" stroke=\"black\" stroke-width=\"0.01mm\" />\n"
-    "    <circle r=\"0.8mm\" cx=\"%.1fmm\" cy=\"%.1fmm\" fill=\"%s\" stroke=\"black\" stroke-width=\"0.01mm\" />\n"
+    "    <circle r=\"0.8mm\" cx=\"%.1fmm\" cy=\"%.1fmm\" fill=\"%s\" stroke=\"%s\" stroke-width=\"0.01mm\" />\n"
+    "    <circle r=\"0.8mm\" cx=\"%.1fmm\" cy=\"%.1fmm\" fill=\"%s\" stroke=\"%s\" stroke-width=\"0.01mm\" />\n"
+    "    <circle r=\"0.8mm\" cx=\"%.1fmm\" cy=\"%.1fmm\" fill=\"%s\" stroke=\"%s\" stroke-width=\"0.01mm\" />\n"
+    "    <circle r=\"0.8mm\" cx=\"%.1fmm\" cy=\"%.1fmm\" fill=\"%s\" stroke=\"%s\" stroke-width=\"0.01mm\" />\n"
+    "    <circle r=\"0.8mm\" cx=\"%.1fmm\" cy=\"%.1fmm\" fill=\"%s\" stroke=\"%s\" stroke-width=\"0.01mm\" />\n"
+    "    <circle r=\"0.8mm\" cx=\"%.1fmm\" cy=\"%.1fmm\" fill=\"%s\" stroke=\"%s\" stroke-width=\"0.01mm\" />\n"
     "  </g>\n";
 
 char *svg_end = 
@@ -43,12 +44,12 @@ void print_svg_group(unsigned char value, int x, int y) {
     char *dot6 = (value >> 5) & 1 ? "black" : "none";
 
     printf(svg_group, 
-        x + 0.0, y + 0.0, dot1,
-        x + 0.0, y + 2.5, dot2,
-        x + 0.0, y + 5.0, dot3,
-        x + 2.5, y + 0.0, dot4,
-        x + 2.5, y + 2.5, dot5,
-        x + 2.5, y + 5.0, dot6);
+        x + 0.0, y + 0.0, dot1, dot1,
+        x + 0.0, y + 2.5, dot2, dot2,
+        x + 0.0, y + 5.0, dot3, dot3,
+        x + 2.5, y + 0.0, dot4, dot4,
+        x + 2.5, y + 2.5, dot5, dot5,
+        x + 2.5, y + 5.0, dot6, dot6);
 }
 
 // SCAD templates
@@ -604,14 +605,18 @@ void print_braille_text() {
 
 void print_braille_svg() {
     int n = count_parts() - 1;
-    printf(svg_start, 4.0 + (n * 6.0) + 2.5 + 4.0, 4.0 + (0 * 10.0) + 5.0 + 4.0);
+    float wx = 4.0 + (n * 6.0) + 2.5 + 4.0;
+    float wy = 4.0 + (0 * 10.0) + 5.0 + 4.0;
+    printf(svg_start, wx, wy, wx, wy);
     iterate_parts(print_part_braille_svg_group, NULL);
     printf("%s", svg_end);
 }
 
 void print_braille_scad() {
     int n = count_parts() - 1;
-    printf(scad_module, 4.0 + (n * 6.0) + 2.5 + 4.0, 4.0 + (0 * 10.0) + 5.0 + 4.0);
+    float wx = 4.0 + (n * 6.0) + 2.5 + 4.0;
+    float wy = 4.0 + (0 * 10.0) + 5.0 + 4.0;
+    printf(scad_module, wx, wy);
     iterate_parts(print_part_braille_scad_object, NULL);
 }
 
