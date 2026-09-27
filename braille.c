@@ -19,8 +19,8 @@
 // SVG templates
 
 char *svg_start = 
-    "<svg width=\"%.1f1mm\" height=\"%.1f1mm\" xmlns=\"http://www.w3.org/2000/svg\">\n"
-    "    <rect width=\"%.1fmm\" height=\"%.1fmm\" x=\"0.005mm\" y=\"0.005mm\" rx=\"1.0mm\" ry=\"1.0mm\" fill=\"none\" stroke=\"black\" stroke-width=\"0.01mm\" />";
+    "<svg width=\"%.1f2mm\" height=\"%.1f2mm\" xmlns=\"http://www.w3.org/2000/svg\">\n"
+    "    <rect width=\"%.1fmm\" height=\"%.1fmm\" x=\"0.01mm\" y=\"0.01mm\" rx=\"1.0mm\" ry=\"1.0mm\" fill=\"none\" stroke=\"black\" stroke-width=\"0.01mm\" />";
 
 char *svg_group =
     "  <g>\n"
