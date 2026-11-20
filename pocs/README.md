@@ -18,7 +18,7 @@ Simplified building blocks of the code.
     ```
 
 ## Binary
-- [binary.c](binary.c) prints the binary input, e.g. `0x00000001`.
+- [binary.c](binary.c) prints the binary input, e.g. `0b00000001`.
     ```
     $ gcc -o binary binary.c
     $ ./binary
